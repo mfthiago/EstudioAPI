@@ -27,11 +27,6 @@ namespace MusicaAPI
 
             app.UseHttpsRedirection();
 
-            app.MapGet("/hello-world", () =>
-            {
-                return "Hello World!";
-            });
-
             app.UseAuthorization();
 
 
