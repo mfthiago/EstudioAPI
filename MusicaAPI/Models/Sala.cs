@@ -3,9 +3,15 @@
     public class Sala
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public int? EstudioId { get; set; }
+        public Estudio? Estudio { get; set; }
+        public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
-        public List<Equipamento> Equipamentos { get; set; }
-        public List<Agendamento> Agendamentos { get; set;}
+ 
+
+        public Sala()
+        {
+            
+        }
     }
 }
