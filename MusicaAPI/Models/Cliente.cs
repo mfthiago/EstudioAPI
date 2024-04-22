@@ -7,10 +7,9 @@
 
         public string Email { get; set; } = string.Empty ;
 
-        public Cliente()
-        {
-            
-        }
+        public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
+
+        public Cliente(){ }
 
     }
 }

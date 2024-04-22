@@ -5,9 +5,6 @@
         public int Id { get; set; }
 
 
-        public Estudio()
-        {
-            
-        }
+        public Estudio(){ }
     }
 }

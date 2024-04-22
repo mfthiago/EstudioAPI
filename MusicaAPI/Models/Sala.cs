@@ -9,9 +9,6 @@
         public double Preco { get; set; }
  
 
-        public Sala()
-        {
-            
-        }
+        public Sala() { }
     }
 }
