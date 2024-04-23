@@ -1,4 +1,6 @@
-﻿namespace MusicaAPI.Dtos.Cliente
+﻿using MusicaAPI.Dtos.Agendamento;
+
+namespace MusicaAPI.Dtos.Cliente
 {
     public class ClienteDto
     {
@@ -7,6 +9,7 @@
 
         public string Email { get; set; } = string.Empty;
         public string Telefone { get; set; } = string.Empty;
-        //Agendamentos
+        
+        public List<AgendamentoDto> Agendamentos { get; set; }
     }
 }

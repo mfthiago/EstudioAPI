@@ -17,5 +17,10 @@ namespace MusicaAPI.Repository
         {
             return await _context.Agendamentos.ToListAsync();
         }
+
+        public async Task<Agendamento?> GetByIdAsync(int id)
+        {
+            
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace MusicaAPI.Controllers
             var clientes = await _clienteRepo.GetAllAsync();
             var clienteDto = clientes.Select(s => s.ToClienteDto());
 
-            return Ok(clientes);
+            return Ok(clienteDto);
         }
 
         [HttpGet("{id}")]

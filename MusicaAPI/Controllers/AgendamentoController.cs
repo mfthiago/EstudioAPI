@@ -27,5 +27,18 @@ namespace MusicaAPI.Controllers
 
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var agendamento = await _agendamentoRepo.GetByIdAsync(id);
+
+            if(agendamento == null)
+            {
+                return NotFound();
+            }
+            return Ok(agendamento.ToAgendamentoDto());
+        }
+
+
     }
 }

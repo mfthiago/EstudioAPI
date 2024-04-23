@@ -18,6 +18,7 @@ namespace MusicaAPI.Mappers
                 Nome = clienteModel.Nome,
                 Email = clienteModel.Email,
                 Telefone = clienteModel.Telefone,
+                Agendamentos = clienteModel.Agendamentos.Select(a => a.ToAgendamentoDto()).ToList() 
 
             };
         }

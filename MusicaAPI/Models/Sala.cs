@@ -8,6 +8,7 @@
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
         public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
+        public List<Equipamento> Equipamentos { get; set; } = new List<Equipamento>();
 
 
         public Sala() { }

@@ -14,6 +14,8 @@ namespace MusicaAPI.Mappers
                 EstudioId = salaModel.EstudioId,
                 Nome = salaModel.Nome,
                 Preco = salaModel.Preco,
+                Agendamentos = salaModel.Agendamentos.Select(a => a.ToAgendamentoDto()).ToList(),
+                Equipamentos = salaModel.Equipamentos.Select(s => s.ToEquipamentoDto()).ToList()
             };
         }
     }

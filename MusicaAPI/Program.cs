@@ -20,6 +20,8 @@ namespace MusicaAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;});
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -27,6 +29,9 @@ namespace MusicaAPI
 
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
+            builder.Services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
+            builder.Services.AddScoped<IEstudioRepository, EstudioRepository>();
+            builder.Services.AddScoped<ISalaRepository, SalaRepository>();
 
             var app = builder.Build();
 
