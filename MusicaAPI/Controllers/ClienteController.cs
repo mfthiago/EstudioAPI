@@ -4,6 +4,7 @@ using MusicaAPI.Mappers;
 using MusicaAPI.Dtos;
 using MusicaAPI.Dtos.Cliente;
 using Microsoft.EntityFrameworkCore;
+using MusicaAPI.Interfaces;
 
 namespace MusicaAPI.Controllers
 {
@@ -12,15 +13,17 @@ namespace MusicaAPI.Controllers
     public class ClienteController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public ClienteController(ApplicationDbContext context)
+        private readonly IClienteRepository _clienteRepo;
+        public ClienteController(ApplicationDbContext context, IClienteRepository clienteRepo)
         {
+            _clienteRepo = clienteRepo;
             _context = context;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var clientes = await _context.Clientes.ToListAsync();
+            var clientes = await _clienteRepo.GetAllAsync();
             var clienteDto = clientes.Select(s => s.ToClienteDto());
 
             return Ok(clientes);

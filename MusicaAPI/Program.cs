@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Data;
+using MusicaAPI.Interfaces;
+using MusicaAPI.Repository;
 
 namespace MusicaAPI
 {
@@ -23,7 +25,7 @@ namespace MusicaAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-
+            builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
             var app = builder.Build();
 
