@@ -3,6 +3,7 @@ using MusicaAPI.Data;
 using MusicaAPI.Mappers;
 using MusicaAPI.Dtos;
 using MusicaAPI.Dtos.Cliente;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusicaAPI.Controllers
 {
@@ -17,18 +18,18 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var clientes = _context.Clientes.ToList()
-                .Select(s => s.ToClienteDto());
+            var clientes = await _context.Clientes.ToListAsync();
+            var clienteDto = clientes.Select(s => s.ToClienteDto());
 
             return Ok(clientes);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var cliente = _context.Clientes.Find(id);
+            var cliente = await _context.Clientes.FindAsync(id);
 
             if(cliente == null)
             {
@@ -39,19 +40,19 @@ namespace MusicaAPI.Controllers
 
         [HttpPost]
 
-        public IActionResult Create([FromBody] CreateClienteRequestDto clienteDto)
+        public async Task<IActionResult> Create([FromBody] CreateClienteRequestDto clienteDto)
         {
             var clienteModel = clienteDto.ToClienteFromCreateDTO();
-            _context.Clientes.Add(clienteModel);
-            _context.SaveChanges();
+            await _context.Clientes.AddAsync(clienteModel);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = clienteModel.Id }, clienteModel.ToClienteDto());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateClienteRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateClienteRequestDto updateDto)
         {
-            var clienteModel = _context.Clientes.FirstOrDefault(x => x.Id == id);
+            var clienteModel = await _context.Clientes.FirstOrDefaultAsync(x => x.Id == id);
 
             if(clienteModel == null)
             {
@@ -62,11 +63,26 @@ namespace MusicaAPI.Controllers
             clienteModel.Email = updateDto.Email;
             clienteModel.Telefone = updateDto.Telefone;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(clienteModel.ToClienteDto());
 
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var clienteModel = await _context.Clientes.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(clienteModel == null)
+            {
+                return NotFound();
+            }
+            _context.Clientes.Remove(clienteModel);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
