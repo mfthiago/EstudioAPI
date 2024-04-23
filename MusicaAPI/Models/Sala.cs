@@ -7,7 +7,8 @@
         public Estudio? Estudio { get; set; }
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
- 
+        public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
+
 
         public Sala() { }
     }
