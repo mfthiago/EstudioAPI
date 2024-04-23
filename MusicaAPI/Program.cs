@@ -26,6 +26,7 @@ namespace MusicaAPI
             });
 
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+            builder.Services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
 
             var app = builder.Build();
 

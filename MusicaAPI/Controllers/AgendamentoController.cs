@@ -1,12 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MusicaAPI.Interfaces;
+using MusicaAPI.Dtos.Agendamento;
+using MusicaAPI.Mappers;
 
 namespace MusicaAPI.Controllers
 {
-    public class AgendamentoController : Controller
+
+    [Route("MusicaAPI/Agendamento")]
+    [ApiController]
+    public class AgendamentoController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IAgendamentoRepository _agendamentoRepo;
+
+        public AgendamentoController(IAgendamentoRepository agendamentoRepo)
         {
-            return View();
+            _agendamentoRepo = agendamentoRepo;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var agendamentos = await _agendamentoRepo.GetAllAsync();
+            var agendamentoDto = agendamentos.Select(s => s.ToAgendamentoDto());
+
+            return Ok(agendamentoDto);
+
+        }
+
     }
 }
