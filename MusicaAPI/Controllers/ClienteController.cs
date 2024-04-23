@@ -47,6 +47,26 @@ namespace MusicaAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = clienteModel.Id }, clienteModel.ToClienteDto());
         }
 
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateClienteRequestDto updateDto)
+        {
+            var clienteModel = _context.Clientes.FirstOrDefault(x => x.Id == id);
+
+            if(clienteModel == null)
+            {
+                return NotFound();
+            }
+
+            clienteModel.Nome = updateDto.Nome;
+            clienteModel.Email = updateDto.Email;
+            clienteModel.Telefone = updateDto.Telefone;
+
+            _context.SaveChanges();
+
+            return Ok(clienteModel.ToClienteDto());
+
+        }
 
     }
 }
