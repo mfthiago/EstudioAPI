@@ -42,7 +42,7 @@ namespace MusicaAPI.Controllers
             return Ok(equipamento.ToEquipamentoDto());
         }
 
-        [HttpPost("{estudioId},{salaId}")]
+        [HttpPost("{salaId:int}")]
         public async Task<IActionResult> Create([FromRoute] int salaId, CreateEquipamentoRequestDto equipamentoDto)
         {
             if (!await _salaRepo.SalaExists(salaId))
@@ -50,8 +50,8 @@ namespace MusicaAPI.Controllers
                 return BadRequest("Informações inválidas");
             }
             var equipamentoModel = equipamentoDto.ToEquipamentoFromCreate(salaId);
-            await _agendamentoRepo.CreateAsync(agendamentoModel);
-            return CreatedAtAction(nameof(GetById), new { id = agendamentoModel }, agendamentoModel.ToAgendamentoDto());
+            await _equipamentoRepo.CreateAsync(equipamentoModel);
+            return CreatedAtAction(nameof(GetById), new { id = equipamentoModel.Id }, equipamentoModel.ToEquipamentoDto());
         }
 
     }

@@ -29,7 +29,7 @@ namespace MusicaAPI.Controllers
             return Ok(clienteDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
             {
             var cliente = await _clienteRepo.GetByIdAsync(id);
@@ -51,7 +51,7 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateClienteRequestDto updateDto)
         {
             var clienteModel = await _clienteRepo.UpdateAsync(id, updateDto);

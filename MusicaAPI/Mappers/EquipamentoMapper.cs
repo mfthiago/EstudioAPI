@@ -18,8 +18,7 @@ namespace MusicaAPI.Mappers
 
             };
         }
-        public static Equipamento ToEquipamentoFromCreate(this CreateEquipamentoRequestDto equipamentoDto, int equipamentoId
-            ,int salaId)
+        public static Equipamento ToEquipamentoFromCreate(this CreateEquipamentoRequestDto equipamentoDto, int salaId)
         {
             return new Equipamento
             {

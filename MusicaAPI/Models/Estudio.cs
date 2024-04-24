@@ -7,7 +7,6 @@
         public string Telefone { get; set; } = string.Empty;
         public string Endereco { get; set; } = string.Empty;
         public List<Sala> Salas { get; set; } = new List<Sala>();
-        public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
 
         public Estudio() { }
     }

@@ -12,13 +12,11 @@ namespace MusicaAPI.Controllers
     {
         private readonly IAgendamentoRepository _agendamentoRepo;
         private readonly IClienteRepository _clienteRepo;
-        private readonly IEstudioRepository _estudioRepo;
         private readonly ISalaRepository _salaRepo;
-        public AgendamentoController(IAgendamentoRepository agendamentoRepo, IClienteRepository clienteRepo, IEstudioRepository estudioRepo, ISalaRepository salaRepo)
+        public AgendamentoController(IAgendamentoRepository agendamentoRepo, IClienteRepository clienteRepo, ISalaRepository salaRepo)
         {
             _agendamentoRepo = agendamentoRepo;
             _clienteRepo = clienteRepo;
-            _estudioRepo = estudioRepo;
             _salaRepo = salaRepo;
         }
 
@@ -44,18 +42,17 @@ namespace MusicaAPI.Controllers
             return Ok(agendamento.ToAgendamentoDto());
         }
 
-        [HttpPost("{clienteId},{estudioId},{salaId}")]
-        public async Task<IActionResult> Create([FromRoute] int clienteId,int estudioId,int salaId, CreateAgendamentoDto agendamentoDto )
+        [HttpPost("{clienteId:int},{salaId:int}")]
+        public async Task<IActionResult> Create([FromRoute] int clienteId,int salaId, CreateAgendamentoDto agendamentoDto )
         {
             if(!await _clienteRepo.ClienteExists(clienteId)||
-                !await _estudioRepo.EstudioExists(estudioId)||
                 !await _salaRepo.SalaExists(salaId))
             {
                 return BadRequest("Informações inválidas");
             }
-            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId, estudioId, salaId);
+            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId,salaId);
             await _agendamentoRepo.CreateAsync(agendamentoModel);
-            return CreatedAtAction(nameof(GetById), new { id = agendamentoModel }, agendamentoModel.ToAgendamentoDto());
+            return CreatedAtAction(nameof(GetById), new { id = agendamentoModel.Id }, agendamentoModel.ToAgendamentoDto());
         }
 
     }
