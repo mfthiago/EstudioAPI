@@ -11,10 +11,15 @@ namespace MusicaAPI.Controllers
     public class AgendamentoController : ControllerBase
     {
         private readonly IAgendamentoRepository _agendamentoRepo;
-
-        public AgendamentoController(IAgendamentoRepository agendamentoRepo)
+        private readonly IClienteRepository _clienteRepo;
+        private readonly IEstudioRepository _estudioRepo;
+        private readonly ISalaRepository _salaRepo;
+        public AgendamentoController(IAgendamentoRepository agendamentoRepo, IClienteRepository clienteRepo, IEstudioRepository estudioRepo, ISalaRepository salaRepo)
         {
             _agendamentoRepo = agendamentoRepo;
+            _clienteRepo = clienteRepo;
+            _estudioRepo = estudioRepo;
+            _salaRepo = salaRepo;
         }
 
         [HttpGet]
@@ -39,6 +44,19 @@ namespace MusicaAPI.Controllers
             return Ok(agendamento.ToAgendamentoDto());
         }
 
+        [HttpPost("{clienteId},{estudioId},{salaId}")]
+        public async Task<IActionResult> Create([FromRoute] int clienteId,int estudioId,int salaId, CreateAgendamentoDto agendamentoDto )
+        {
+            if(!await _clienteRepo.ClienteExists(clienteId)||
+                !await _estudioRepo.EstudioExists(estudioId)||
+                !await _salaRepo.SalaExists(salaId))
+            {
+                return BadRequest("Informações inválidas");
+            }
+            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId, estudioId, salaId);
+            await _agendamentoRepo.CreateAsync(agendamentoModel);
+            return CreatedAtAction(nameof(GetById), new { id = agendamentoModel }, agendamentoModel.ToAgendamentoDto());
+        }
 
     }
 }

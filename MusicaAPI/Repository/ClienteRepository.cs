@@ -45,6 +45,11 @@ namespace MusicaAPI.Repository
             return await _context.Clientes.Include(a => a.Agendamentos).FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public Task<bool> ClienteExists(int id)
+        {
+            return _context.Clientes.AnyAsync(c => c.Id == id);
+        }
+
         public async Task<Cliente?> UpdateAsync(int id, UpdateClienteRequestDto clienteDto)
         {
             var existingCliente = await _context.Clientes.FirstOrDefaultAsync(x => x.Id == id);

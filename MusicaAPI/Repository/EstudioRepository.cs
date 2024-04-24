@@ -36,6 +36,11 @@ namespace MusicaAPI.Repository
             return estudioModel;
         }
 
+        public Task<bool> EstudioExists(int id)
+        {
+            return _context.Estudios.AnyAsync(x => x.Id == id);
+        }
+
         public async Task<List<Estudio>> GetAllAsync()
         {
             return await _context.Estudios.Include(a => a.Agendamentos).ToListAsync();
@@ -57,6 +62,7 @@ namespace MusicaAPI.Repository
             existingEstudio.Nome = estudioDto.Nome;
             existingEstudio.Endereco = estudioDto.Endereco;
             existingEstudio.Telefone = estudioDto.Telefone;
+
 
             await _context.SaveChangesAsync();
             return existingEstudio;

@@ -11,5 +11,6 @@ namespace MusicaAPI.Interfaces
         Task<Equipamento> CreateAsync(Equipamento equipamentoModel);
         Task<Equipamento?> UpdateAsync(int id, UpdateEquipamentoRequestDto equipamentoDto);
         Task<Equipamento?> DeleteAsync(int id);
+        Task<bool> EquipamentoExists(int id);
     }
 }

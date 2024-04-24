@@ -47,6 +47,11 @@ namespace MusicaAPI.Repository
             return await _context.Salas.Include(a => a.Agendamentos).FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public Task<bool> SalaExists(int id)
+        {
+            return _context.Salas.AnyAsync(a => a.Id == id);
+        }
+
         public async Task<Sala?> UpdateAsync(int id, UpdateSalaRequestDto salaDto)
         {
             var existingSala = await _context.Salas.FirstOrDefaultAsync(x => x.Id == id);

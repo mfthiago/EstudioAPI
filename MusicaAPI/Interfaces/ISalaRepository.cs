@@ -11,5 +11,6 @@ namespace MusicaAPI.Interfaces
         Task<Sala> CreateAsync(Sala salaModel);
         Task<Sala?> UpdateAsync(int id, UpdateSalaRequestDto salaDto);
         Task<Sala?> DeleteAsync(int id);
+        Task<bool> SalaExists(int id);
     }
 }

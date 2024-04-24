@@ -10,7 +10,7 @@ namespace MusicaAPI.Interfaces
         Task<Cliente> CreateAsync(Cliente clienteModel);
         Task<Cliente?> UpdateAsync(int id, UpdateClienteRequestDto clienteDto);
         Task<Cliente?> DeleteAsync(int id);
-
+        Task<bool> ClienteExists(int id);
 
     }
 }

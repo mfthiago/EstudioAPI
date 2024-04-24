@@ -10,5 +10,6 @@ namespace MusicaAPI.Interfaces
         Task<Estudio> CreateAsync(Estudio estudioModel);
         Task<Estudio?> UpdateAsync(int id, UpdateEstudioRequestDto estudioDto);
         Task<Estudio?> DeleteAsync(int id);
+        Task<bool> EstudioExists(int id);
     }
 }

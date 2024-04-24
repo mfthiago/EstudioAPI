@@ -36,6 +36,11 @@ namespace MusicaAPI.Repository
             return equipamentoModel;
         }
 
+        public Task<bool> EquipamentoExists(int id)
+        {
+            return _context.Equipamentos.AnyAsync(x => x.Id == id);
+        }
+
         public async Task<List<Equipamento>> GetAllAsync()
         {
             return await _context.Equipamentos.ToListAsync();
