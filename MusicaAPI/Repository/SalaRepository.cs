@@ -52,16 +52,16 @@ namespace MusicaAPI.Repository
             return _context.Salas.AnyAsync(a => a.Id == id);
         }
 
-        public async Task<Sala?> UpdateAsync(int id, UpdateSalaRequestDto salaDto)
+        public async Task<Sala?> UpdateAsync(int id, Sala salaModel)
         {
-            var existingSala = await _context.Salas.FirstOrDefaultAsync(x => x.Id == id);
+            var existingSala = await _context.Salas.FindAsync(id);
             if (existingSala == null)
             {
                 return null;
             }
 
-            existingSala.Nome = salaDto.Nome;
-            existingSala.Preco = salaDto.Preco;
+            existingSala.Nome = salaModel.Nome;
+            existingSala.Preco = salaModel.Preco;
 
 
             await _context.SaveChangesAsync();

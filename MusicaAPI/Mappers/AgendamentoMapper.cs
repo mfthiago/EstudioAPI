@@ -25,5 +25,13 @@ namespace MusicaAPI.Mappers
                 Data = agendamentoDto.Data
             };
         }
+
+        public static Agendamento ToAgendamentoFromUpdate(this UpdateAgendamentoRequestDto agendamentoDto)
+        {
+            return new Agendamento
+            {
+                Data = agendamentoDto.Data
+            };
+        }
     }
 }

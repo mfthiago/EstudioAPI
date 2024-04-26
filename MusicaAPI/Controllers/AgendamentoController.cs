@@ -55,5 +55,32 @@ namespace MusicaAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = agendamentoModel.Id }, agendamentoModel.ToAgendamentoDto());
         }
 
+        [HttpPut]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto)
+        {
+            var agendamento = await _agendamentoRepo.UpdateAsync(id, updateDto.ToAgendamentoFromUpdate());
+            if(agendamento == null)
+            {
+                return NotFound("Agendamento não encontrado.");
+            }
+            return Ok(agendamento.ToAgendamentoDto());
+
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var agendamentoModel = await _agendamentoRepo.DeleteAsync(id);
+            if(agendamentoModel == null)
+            {
+                return NotFound("Agendamento não existe.");
+            }
+            return Ok(agendamentoModel);
+
+        }
+
     }
 }

@@ -1,8 +1,7 @@
 ﻿namespace MusicaAPI.Dtos.Agendamento
 {
-    public class CreateAgendamentoDto
+    public class UpdateAgendamentoRequestDto
     {
-
         public DateTime Data { get; set; }
     }
 }

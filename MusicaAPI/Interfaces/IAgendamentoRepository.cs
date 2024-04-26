@@ -9,5 +9,9 @@ namespace MusicaAPI.Interfaces
         Task<bool> AgendamentoExists(int id);
         Task<Agendamento> CreateAsync(Agendamento agendamentoModel);
 
+        Task<Agendamento?> UpdateAsync(int id, Agendamento agendamentoModel);
+
+        Task<Agendamento?> DeleteAsync(int id);
+
     }
 }

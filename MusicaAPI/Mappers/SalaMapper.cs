@@ -1,4 +1,5 @@
 ﻿
+using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Dtos.Estudio;
 using MusicaAPI.Dtos.Sala;
 using MusicaAPI.Models;
@@ -27,6 +28,14 @@ namespace MusicaAPI.Mappers
                 Preco = salaDto.Preco,
                 EstudioId = estudioId
                
+            };
+        }
+        public static Sala ToSalaFromUpdate(this UpdateSalaRequestDto salaDto)
+        {
+            return new Sala
+            {
+                Nome = salaDto.Nome,
+                Preco = salaDto.Preco,
             };
         }
     }

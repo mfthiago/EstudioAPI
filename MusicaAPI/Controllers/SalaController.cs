@@ -55,5 +55,19 @@ namespace MusicaAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = salaModel.Id }, salaModel.ToSalaDto());
         }
 
+        [HttpPut]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateSalaRequestDto updateDto)
+        {
+            var sala = await _salaRepo.UpdateAsync(id, updateDto.ToSalaFromUpdate());
+            if (sala == null)
+            {
+                return NotFound("Sala não encontrada.");
+            }
+            return Ok(sala.ToSalaDto());
+
+        }
+
     }
 }
