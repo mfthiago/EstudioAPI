@@ -53,6 +53,19 @@ namespace MusicaAPI.Controllers
             await _equipamentoRepo.CreateAsync(equipamentoModel);
             return CreatedAtAction(nameof(GetById), new { id = equipamentoModel.Id }, equipamentoModel.ToEquipamentoDto());
         }
+        [HttpDelete]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var equipamentoModel = await _equipamentoRepo.DeleteAsync(id);
+            if (equipamentoModel == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
 
     }
 }

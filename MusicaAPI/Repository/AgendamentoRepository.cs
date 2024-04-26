@@ -39,8 +39,6 @@ namespace MusicaAPI.Repository
             await _context.SaveChangesAsync();
             return agendamentoModel;
 
-
-
         }
 
         public async Task<List<Agendamento>> GetAllAsync()

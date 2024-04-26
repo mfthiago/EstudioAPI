@@ -68,6 +68,19 @@ namespace MusicaAPI.Controllers
             return Ok(sala.ToSalaDto());
 
         }
+       
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var salaModel = await _salaRepo.DeleteAsync(id);
+            if (salaModel == null)
+            {
+                return NotFound("Sala não existe.");
+            }
+            return Ok(salaModel);
+
+        }
 
     }
 }

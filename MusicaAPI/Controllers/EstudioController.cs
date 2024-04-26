@@ -80,7 +80,7 @@ namespace MusicaAPI.Controllers
                 return NotFound();
             }
 
-            return NoContent();
+            return Ok(estudioModel);
         }
     }
 }
