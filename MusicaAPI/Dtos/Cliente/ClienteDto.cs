@@ -10,6 +10,6 @@ namespace MusicaAPI.Dtos.Cliente
         public string Email { get; set; } = string.Empty;
         public string Telefone { get; set; } = string.Empty;
         
-        public List<AgendamentoDto> Agendamentos { get; set; }
+        public List<AgendamentoDto> Agendamentos { get; set; } = new List<AgendamentoDto>();
     }
 }

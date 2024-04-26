@@ -9,7 +9,7 @@ namespace MusicaAPI.Dtos.Sala
         public int? EstudioId { get; set; }
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
-        public List<AgendamentoDto> Agendamentos { get; set; }
-        public List<EquipamentoDto> Equipamentos { get; set; }
+        public List<AgendamentoDto> Agendamentos { get; set; } = new List<AgendamentoDto>();
+        public List<EquipamentoDto> Equipamentos { get; set; } = new List<EquipamentoDto>();
     }
 }

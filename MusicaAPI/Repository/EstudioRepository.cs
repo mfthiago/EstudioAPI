@@ -43,12 +43,12 @@ namespace MusicaAPI.Repository
 
         public async Task<List<Estudio>> GetAllAsync()
         {
-            return await _context.Estudios.Include(a => a.Agendamentos).ToListAsync();
+            return await _context.Estudios.Include(s => s.Salas).ToListAsync();
         }
 
         public async Task<Estudio?> GetByIdAsync(int id)
         {
-            return await _context.Estudios.Include(a => a.Agendamentos).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Estudios.Include(s => s.Salas).FirstOrDefaultAsync(i => i.Id == id);
         }
        
         public async Task<Estudio?> UpdateAsync(int id, UpdateEstudioRequestDto estudioDto)

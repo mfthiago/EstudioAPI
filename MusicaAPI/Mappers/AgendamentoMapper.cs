@@ -21,7 +21,8 @@ namespace MusicaAPI.Mappers
             return new Agendamento
             {
                 ClienteId = clienteId,
-                SalaId = salaId
+                SalaId = salaId,
+                Data = agendamentoDto.Data
             };
         }
     }

@@ -5,6 +5,7 @@ using MusicaAPI.Dtos;
 using MusicaAPI.Dtos.Cliente;
 using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Interfaces;
+using MusicaAPI.Dtos.Estudio;
 
 namespace MusicaAPI.Controllers
 {
@@ -54,17 +55,17 @@ namespace MusicaAPI.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateClienteRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEstudioRequestDto updateDto)
         {
-            var clienteModel = await _clienteRepo.UpdateAsync(id, updateDto);
+            var estudioModel = await _estudioRepo.UpdateAsync(id, updateDto);
 
-            if (clienteModel == null)
+            if (estudioModel == null)
             {
                 return NotFound();
             }
 
 
-            return Ok(clienteModel.ToClienteDto());
+            return Ok(estudioModel.ToEstudioDto());
 
         }
 
@@ -73,8 +74,8 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var clienteModel = await _clienteRepo.DeleteAsync(id);
-            if (clienteModel == null)
+            var estudioModel = await _estudioRepo.DeleteAsync(id);
+            if (estudioModel == null)
             {
                 return NotFound();
             }

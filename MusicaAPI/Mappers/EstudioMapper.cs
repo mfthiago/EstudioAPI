@@ -1,4 +1,5 @@
 ﻿
+using MusicaAPI.Dtos.Cliente;
 using MusicaAPI.Dtos.Estudio;
 using MusicaAPI.Models;
 
@@ -16,6 +17,15 @@ namespace MusicaAPI.Mappers
                 Telefone = estudioModel.Telefone,
                 Salas = estudioModel.Salas.Select(s => s.ToSalaDto()).ToList()
 
+            };
+        }
+        public static Estudio ToEstudioFromCreateDTO(this CreateEstudioRequestDto estudioDto)
+        {
+            return new Estudio
+            {
+                Nome = estudioDto.Nome,
+                Endereco = estudioDto.Endereco,
+                Telefone = estudioDto.Telefone
             };
         }
     } 

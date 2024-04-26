@@ -22,6 +22,8 @@ namespace MusicaAPI.Mappers
         {
             return new Equipamento
             {
+                Nome = equipamentoDto.Nome,
+                Instrumento = equipamentoDto.Instrumento,
                 SalaId = salaId
             };
         }
