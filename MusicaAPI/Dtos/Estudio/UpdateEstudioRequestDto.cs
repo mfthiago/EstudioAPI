@@ -15,6 +15,6 @@ namespace MusicaAPI.Dtos.Estudio
 
         [Required]
         public string Endereco { get; set; } = string.Empty;
-        public List<SalaDto> Salas { get; set; } = new List<SalaDto>();
+
     }
 }

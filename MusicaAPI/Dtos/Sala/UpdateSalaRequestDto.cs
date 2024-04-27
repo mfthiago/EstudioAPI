@@ -6,6 +6,5 @@ namespace MusicaAPI.Dtos.Sala
     {
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
-        public List<EquipamentoDto> Equipamentos { get; set; } = new List<EquipamentoDto>();
     }
 }

@@ -48,7 +48,7 @@ namespace MusicaAPI.Controllers
         {
             if (!await _estudioRepo.EstudioExists(estudioId))
             {
-                return BadRequest("Informações inválidas");
+                return BadRequest("Estúdio não existe.");
             }
             var salaModel = salaDto.ToSalaFromCreateDto(estudioId);
             await _salaRepo.CreateAsync(salaModel);

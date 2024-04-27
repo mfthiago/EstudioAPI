@@ -13,9 +13,10 @@ namespace MusicaAPI.Mappers
             return new EquipamentoDto
             {
                 Id = equipamentoModel.Id,
+                SalaId = equipamentoModel.SalaId,
                 Instrumento = equipamentoModel.Instrumento,
                 Nome = equipamentoModel.Nome,
-                SalaId = equipamentoModel.SalaId,
+                
 
             };
         }
