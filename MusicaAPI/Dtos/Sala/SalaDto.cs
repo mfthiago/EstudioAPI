@@ -1,5 +1,6 @@
 ﻿using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Dtos.Equipamento;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicaAPI.Dtos.Sala
 {

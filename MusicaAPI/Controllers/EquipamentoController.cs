@@ -4,6 +4,7 @@ using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Mappers;
 using MusicaAPI.Data;
 using MusicaAPI.Dtos.Equipamento;
+using MusicaAPI.Dtos.Sala;
 
 namespace MusicaAPI.Controllers
 {
@@ -47,14 +48,31 @@ namespace MusicaAPI.Controllers
         {
             if (!await _salaRepo.SalaExists(salaId))
             {
-                return BadRequest("Informações inválidas");
+                return BadRequest("Sala não existe");
             }
-            var equipamentoModel = equipamentoDto.ToEquipamentoFromCreate(salaId);
+            var equipamentoModel = equipamentoDto.ToEquipamentoFromCreateDto(salaId);
             await _equipamentoRepo.CreateAsync(equipamentoModel);
             return CreatedAtAction(nameof(GetById), new { id = equipamentoModel.Id }, equipamentoModel.ToEquipamentoDto());
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEquipamentoRequestDto updateDto)
+        {
+            var equipamento = await _equipamentoRepo.UpdateAsync(id, updateDto);
+            if (equipamento == null)
+            {
+                return NotFound("Equipamento não encontrada.");
+            }
+            return Ok(equipamento.ToEquipamentoDto());
+
+        }
+
+
+
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
 
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

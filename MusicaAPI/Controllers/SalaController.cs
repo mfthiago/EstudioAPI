@@ -56,7 +56,7 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
 
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateSalaRequestDto updateDto)
         {
@@ -70,7 +70,7 @@ namespace MusicaAPI.Controllers
         }
        
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var salaModel = await _salaRepo.DeleteAsync(id);

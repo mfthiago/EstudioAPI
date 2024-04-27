@@ -1,6 +1,7 @@
 ﻿using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Dtos.Cliente;
 using MusicaAPI.Dtos.Equipamento;
+using MusicaAPI.Dtos.Sala;
 using MusicaAPI.Models;
 
 namespace MusicaAPI.Mappers
@@ -18,13 +19,22 @@ namespace MusicaAPI.Mappers
 
             };
         }
-        public static Equipamento ToEquipamentoFromCreate(this CreateEquipamentoRequestDto equipamentoDto, int salaId)
+        public static Equipamento ToEquipamentoFromCreateDto(this CreateEquipamentoRequestDto equipamentoDto, int salaId)
         {
             return new Equipamento
             {
                 Nome = equipamentoDto.Nome,
                 Instrumento = equipamentoDto.Instrumento,
-                SalaId = salaId
+                SalaId = salaId,
+
+            };
+        }
+        public static Equipamento ToEquipamentoFromUpdate(this UpdateEquipamentoRequestDto equipamentoDto)
+        {
+            return new Equipamento
+            {
+                Nome = equipamentoDto.Nome,
+                Instrumento = equipamentoDto.Instrumento,
             };
         }
     }

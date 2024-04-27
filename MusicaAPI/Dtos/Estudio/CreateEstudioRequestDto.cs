@@ -1,9 +1,18 @@
-﻿namespace MusicaAPI.Dtos.Estudio
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MusicaAPI.Dtos.Estudio
 {
     public class CreateEstudioRequestDto
     {
+        [Required]
         public string Nome { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.PhoneNumber, ErrorMessage =
+            "Número inválido.")]
         public string Telefone { get; set; } = string.Empty;
+
+        [Required]
         public string Endereco { get; set; } = string.Empty;
     }
 }

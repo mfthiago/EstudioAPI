@@ -1,4 +1,5 @@
 ﻿using MusicaAPI.Dtos.Agendamento;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicaAPI.Dtos.Cliente
 {
