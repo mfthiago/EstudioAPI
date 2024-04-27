@@ -8,7 +8,9 @@ namespace MusicaAPI.Dtos.Agendamento
         public int Id { get; set; }
         public int? ClienteId { get; set; }
         public int? SalaId { get; set; }
-        [Required]
-        public DateTime Data { get; set; }
+
+        public DateTime DataInicial { get; set; }
+
+        public DateTime DataFinal { get; set; }
     }
 }
