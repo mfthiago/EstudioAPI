@@ -59,7 +59,8 @@ namespace MusicaAPI.Repository
             {
                 return null;
             }
-            existingAgendamento.Data = agendamentoModel.Data;
+            existingAgendamento.DataInicial = agendamentoModel.DataInicial;
+            existingAgendamento.DataFinal = agendamentoModel.DataFinal;
 
             await _context.SaveChangesAsync();
             return existingAgendamento;

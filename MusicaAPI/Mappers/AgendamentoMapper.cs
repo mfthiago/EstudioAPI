@@ -12,7 +12,8 @@ namespace MusicaAPI.Mappers
                 Id = agendamentoModel.Id,
                 ClienteId = agendamentoModel.ClienteId,
                 SalaId = agendamentoModel.SalaId,
-                Data = agendamentoModel.Data,
+                DataInicial = agendamentoModel.DataInicial,
+                DataFinal = agendamentoModel.DataFinal
             };
         }
         public static Agendamento ToAgendamentoFromCreate(this CreateAgendamentoDto agendamentoDto, int clienteId
@@ -22,7 +23,8 @@ namespace MusicaAPI.Mappers
             {
                 ClienteId = clienteId,
                 SalaId = salaId,
-                Data = agendamentoDto.Data
+                DataInicial = agendamentoDto.DataInicial,
+                DataFinal = agendamentoDto.DataFinal
             };
         }
 
@@ -30,7 +32,8 @@ namespace MusicaAPI.Mappers
         {
             return new Agendamento
             {
-                Data = agendamentoDto.Data
+                DataInicial = agendamentoDto.DataInicial,
+                DataFinal = agendamentoDto.DataFinal
             };
         }
     }

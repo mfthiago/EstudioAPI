@@ -23,6 +23,10 @@ namespace MusicaAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var agendamentos = await _agendamentoRepo.GetAllAsync();
             var agendamentoDto = agendamentos.Select(s => s.ToAgendamentoDto());
 
@@ -33,6 +37,10 @@ namespace MusicaAPI.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var agendamento = await _agendamentoRepo.GetByIdAsync(id);
 
             if(agendamento == null)
@@ -45,7 +53,11 @@ namespace MusicaAPI.Controllers
         [HttpPost("{clienteId:int},{salaId:int}")]
         public async Task<IActionResult> Create([FromRoute] int clienteId,int salaId, CreateAgendamentoDto agendamentoDto )
         {
-            if(!await _clienteRepo.ClienteExists(clienteId)||
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!await _clienteRepo.ClienteExists(clienteId)||
                 !await _salaRepo.SalaExists(salaId))
             {
                 return BadRequest("Informações inválidas");
@@ -60,6 +72,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var agendamento = await _agendamentoRepo.UpdateAsync(id, updateDto.ToAgendamentoFromUpdate());
             if(agendamento == null)
             {
@@ -73,6 +89,10 @@ namespace MusicaAPI.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var agendamentoModel = await _agendamentoRepo.DeleteAsync(id);
             if(agendamentoModel == null)
             {

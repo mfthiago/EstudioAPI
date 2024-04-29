@@ -26,6 +26,10 @@ namespace MusicaAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var estudios = await _estudioRepo.GetAllAsync();
             var estudioDto = estudios.Select(e => e.ToEstudioDto());
 
@@ -35,6 +39,10 @@ namespace MusicaAPI.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var estudio = await _estudioRepo.GetByIdAsync(id);
 
             if (estudio == null)
@@ -48,6 +56,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Create([FromBody] CreateEstudioRequestDto estudioDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var estudioModel = estudioDto.ToEstudioFromCreateDTO();
             await _estudioRepo.CreateAsync(estudioModel);
             return CreatedAtAction(nameof(GetById), new { id = estudioModel.Id }, estudioModel.ToEstudioDto());
@@ -57,6 +69,10 @@ namespace MusicaAPI.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEstudioRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var estudioModel = await _estudioRepo.UpdateAsync(id, updateDto);
 
             if (estudioModel == null)
@@ -74,6 +90,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var estudioModel = await _estudioRepo.DeleteAsync(id);
             if (estudioModel == null)
             {

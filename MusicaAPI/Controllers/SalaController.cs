@@ -24,6 +24,10 @@ namespace MusicaAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var salas = await _salaRepo.GetAllAsync();
             var salaDto = salas.Select(s => s.ToSalaDto());
 
@@ -34,6 +38,10 @@ namespace MusicaAPI.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var sala = await _salaRepo.GetByIdAsync(id);
 
             if (sala == null)
@@ -46,6 +54,10 @@ namespace MusicaAPI.Controllers
         [HttpPost("{estudioId:int}")]
         public async Task<IActionResult> Create([FromRoute] int estudioId, CreateSalaRequestDto salaDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (!await _estudioRepo.EstudioExists(estudioId))
             {
                 return BadRequest("Estúdio não existe.");
@@ -60,6 +72,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateSalaRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var sala = await _salaRepo.UpdateAsync(id, updateDto.ToSalaFromUpdate());
             if (sala == null)
             {
@@ -73,6 +89,10 @@ namespace MusicaAPI.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var salaModel = await _salaRepo.DeleteAsync(id);
             if (salaModel == null)
             {

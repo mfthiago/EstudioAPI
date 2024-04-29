@@ -24,6 +24,10 @@ namespace MusicaAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var equipamentos = await _equipamentoRepo.GetAllAsync();
             var equipamentoDto = equipamentos.Select(e => e.ToEquipamentoDto());
 
@@ -34,6 +38,10 @@ namespace MusicaAPI.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var equipamento = await _equipamentoRepo.GetByIdAsync(id);
 
             if (equipamento == null)
@@ -46,6 +54,10 @@ namespace MusicaAPI.Controllers
         [HttpPost("{salaId:int}")]
         public async Task<IActionResult> Create([FromRoute] int salaId, CreateEquipamentoRequestDto equipamentoDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (!await _salaRepo.SalaExists(salaId))
             {
                 return BadRequest("Sala não existe");
@@ -60,6 +72,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEquipamentoRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var equipamento = await _equipamentoRepo.UpdateAsync(id, updateDto);
             if (equipamento == null)
             {
@@ -76,6 +92,10 @@ namespace MusicaAPI.Controllers
 
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var equipamentoModel = await _equipamentoRepo.DeleteAsync(id);
             if (equipamentoModel == null)
             {
