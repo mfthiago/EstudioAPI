@@ -5,6 +5,7 @@ using MusicaAPI.Dtos;
 using MusicaAPI.Dtos.Cliente;
 using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Interfaces;
+using MusicaAPI.Helpers;
 
 namespace MusicaAPI.Controllers
 {
@@ -21,13 +22,13 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]QueryObject query)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var clientes = await _clienteRepo.GetAllAsync();
+            var clientes = await _clienteRepo.GetAllAsync(query);
             var clienteDto = clientes.Select(s => s.ToClienteDto());
 
             return Ok(clienteDto);

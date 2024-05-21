@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Data;
 using MusicaAPI.Dtos.Cliente;
+using MusicaAPI.Helpers;
 using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 
@@ -35,9 +36,25 @@ namespace MusicaAPI.Repository
             return clienteModel;
         }
 
-        public async Task<List<Cliente>> GetAllAsync()
+        public async Task<List<Cliente>> GetAllAsync(QueryObject query)
         {
-            return await _context.Clientes.Include(a => a.Agendamentos).ToListAsync();
+            var clientes =  _context.Clientes.Include(a => a.Agendamentos).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.Nome))
+            {
+                clientes = clientes.Where(n => n.Nome.Contains(query.Nome));
+            }
+            if(!string.IsNullOrWhiteSpace(query.Email))
+            {
+                clientes = clientes.Where(e => e.Equals(query.Email));
+            }
+            if(!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.Equals("Nome", StringComparison.OrdinalIgnoreCase))
+                {
+                    clientes = query.IsDescending ? clientes.OrderByDescending(n => n.Nome) : clientes.OrderBy(n => n.Nome);
+                }
+            }
+            return await clientes.ToListAsync();
         }
 
         public async Task<Cliente?> GetByIdAsync(int id)
