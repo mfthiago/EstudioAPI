@@ -54,7 +54,12 @@ namespace MusicaAPI.Repository
                     clientes = query.IsDescending ? clientes.OrderByDescending(n => n.Nome) : clientes.OrderBy(n => n.Nome);
                 }
             }
-            return await clientes.ToListAsync();
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+
+
+            return await clientes.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Cliente?> GetByIdAsync(int id)
