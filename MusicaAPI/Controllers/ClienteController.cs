@@ -6,6 +6,9 @@ using MusicaAPI.Dtos.Cliente;
 using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Interfaces;
 using MusicaAPI.Helpers;
+using Microsoft.AspNetCore.Identity;
+using MusicaAPI.Models;
+
 
 namespace MusicaAPI.Controllers
 {
@@ -15,10 +18,14 @@ namespace MusicaAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IClienteRepository _clienteRepo;
-        public ClienteController(ApplicationDbContext context, IClienteRepository clienteRepo)
+        private readonly UserManager<AppUser> _userManager;
+
+
+        public ClienteController(UserManager<AppUser> userManager, ApplicationDbContext context, IClienteRepository clienteRepo)
         {
             _clienteRepo = clienteRepo;
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -50,17 +57,48 @@ namespace MusicaAPI.Controllers
             return Ok(cliente.ToClienteDto());
         }
 
-        [HttpPost]
+        [HttpPost("register")]
 
-        public async Task<IActionResult> Create([FromBody] CreateClienteRequestDto clienteDto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid) { 
+                return BadRequest(ModelState);}
+
+                var appUser = new AppUser
+                {
+                    UserName = registerDto.Username,
+                    Email = registerDto.Email,
+
+                };
+
+                var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
+                if (createdUser.Succeeded)
+                {
+                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    if (roleResult.Succeeded)
+                    {
+                        return Ok("User created");
+                    }
+                    else
+                    {
+                        return StatusCode(500, roleResult.Errors);
+                    }
+
+                }
+                else
+                {
+                    return StatusCode(500, createdUser.Errors);
+                }
+
+
+
             }
-            var clienteModel = clienteDto.ToClienteFromCreateDTO();
-            await _clienteRepo.CreateAsync(clienteModel);
-            return CreatedAtAction(nameof(GetById), new { id = clienteModel.Id }, clienteModel.ToClienteDto());
+            catch(Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         [HttpPut]
