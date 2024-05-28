@@ -8,6 +8,7 @@ using MusicaAPI.Interfaces;
 using MusicaAPI.Helpers;
 using Microsoft.AspNetCore.Identity;
 using MusicaAPI.Models;
+using MusicaAPI.Service;
 
 
 namespace MusicaAPI.Controllers
@@ -19,13 +20,15 @@ namespace MusicaAPI.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IClienteRepository _clienteRepo;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ITokenService _tokenService;
 
 
-        public ClienteController(UserManager<AppUser> userManager, ApplicationDbContext context, IClienteRepository clienteRepo)
+        public ClienteController(UserManager<AppUser> userManager, ITokenService tokenService,ApplicationDbContext context, IClienteRepository clienteRepo)
         {
             _clienteRepo = clienteRepo;
             _context = context;
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
@@ -79,7 +82,14 @@ namespace MusicaAPI.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created");
+                        return Ok(
+                            new NewUserDto
+                            {
+                                UserName = appUser.UserName,
+                                Email = appUser.Email,
+                                Token = _tokenService.CreateToken(appUser)
+                            }
+                            );
                     }
                     else
                     {

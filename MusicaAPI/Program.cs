@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MusicaAPI.Service;
 
 namespace MusicaAPI
 {
@@ -68,6 +69,7 @@ namespace MusicaAPI
             builder.Services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
             builder.Services.AddScoped<IEstudioRepository, EstudioRepository>();
             builder.Services.AddScoped<ISalaRepository, SalaRepository>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             var app = builder.Build();
 
