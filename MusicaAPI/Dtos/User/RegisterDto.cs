@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MusicaAPI.Dtos.Cliente
+namespace MusicaAPI.Dtos.User
 {
     public class RegisterDto
     {
@@ -10,9 +10,9 @@ namespace MusicaAPI.Dtos.Cliente
         public string? Nome { get; set; }
         [Required]
         [EmailAddress]
-        public string Email { get; set; } 
+        public string Email { get; set; }
         [Required]
-        public string Telefone { get; set; } 
+        public string Telefone { get; set; }
         [Required]
         public string? Password { get; set; }
 

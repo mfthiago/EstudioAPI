@@ -1,5 +1,8 @@
-﻿namespace MusicaAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MusicaAPI.Models
 {
+    [Table("Estudios")]
     public class Estudio
     {
         public int Id { get; set; }

@@ -17,6 +17,26 @@ namespace MusicaAPI.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Agenda>(x => x.HasKey(p => new { p.AppUserId, p.SalaId, p.AgendamentoId }));
+
+            builder.Entity<Agenda>()
+                .HasOne(u => u.AppUser)
+                .WithMany(u => u.Agendas)
+                .HasForeignKey(p => p.AppUserId);
+            
+            builder.Entity<Agenda>()
+                .HasOne(u => u.Sala)
+                .WithMany(u => u.Agendas)
+                .HasForeignKey(p => p.SalaId);
+            
+            builder.Entity<Agenda>()
+                .HasOne(u => u.Agendamento)
+                .WithMany(u => u.Agendas)
+                .HasForeignKey(p => p.AgendamentoId);
+
+
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole
@@ -38,6 +58,7 @@ namespace MusicaAPI.Data
         public DbSet<Equipamento> Equipamentos { get;set; }
         public DbSet<Estudio> Estudios { get; set; } 
         public DbSet<Sala> Salas { get; set; }
+        public DbSet<Agenda> Agendas { get; set; }
 
         
 

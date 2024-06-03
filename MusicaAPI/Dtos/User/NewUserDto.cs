@@ -1,4 +1,4 @@
-﻿namespace MusicaAPI.Dtos.Cliente
+﻿namespace MusicaAPI.Dtos.User
 {
     public class NewUserDto
     {
