@@ -63,6 +63,10 @@ namespace MusicaAPI.Controllers
                 return BadRequest("Informações inválidas");
             }
             var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId,salaId);
+            if (!await _agendamentoRepo.AgendamentoExistsData(agendamentoModel))
+            {
+                return BadRequest("Já existe um agenndamento nesse horário");
+            }
             await _agendamentoRepo.CreateAsync(agendamentoModel);
             return CreatedAtAction(nameof(GetById), new { id = agendamentoModel.Id }, agendamentoModel.ToAgendamentoDto());
         }

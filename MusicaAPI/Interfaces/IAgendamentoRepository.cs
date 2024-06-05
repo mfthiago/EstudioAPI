@@ -1,4 +1,5 @@
 ﻿using MusicaAPI.Models;
+using System.Threading.Tasks;
 
 namespace MusicaAPI.Interfaces
 {
@@ -6,7 +7,8 @@ namespace MusicaAPI.Interfaces
     {
         Task<List<Agendamento>> GetAllAsync();
         Task<Agendamento?> GetByIdAsync(int id);
-        Task<bool> AgendamentoExists(int id);
+        Task<bool> AgendamentoExists(int id, Agendamento agendamentoModel);
+        Task<bool> AgendamentoExistsData(Agendamento agendamentoModel);
         Task<Agendamento> CreateAsync(Agendamento agendamentoModel);
 
         Task<Agendamento?> UpdateAsync(int id, Agendamento agendamentoModel);

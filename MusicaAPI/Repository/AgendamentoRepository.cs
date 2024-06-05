@@ -15,10 +15,37 @@ namespace MusicaAPI.Repository
             _context = context;
         }
 
-        public Task<bool> AgendamentoExists(int id)
+        public async Task<bool> AgendamentoExists(int id, Agendamento agendamentoModel)
         {
-            return _context.Agendamentos.AnyAsync(a=> a.Id== id);
+            var existingAgendamento = await _context.Agendamentos.FindAsync(id);
+            if(existingAgendamento == null)
+            {
+                return false;
+            }
+            if(existingAgendamento.DataInicial == agendamentoModel.DataInicial || existingAgendamento.DataFinal == agendamentoModel.DataInicial) 
+            {
+                return true;
+            }
+
+            return await _context.Agendamentos.AnyAsync(a=> a.Id== id);
         }
+
+        public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel)
+        {
+            var existingAgendamento = await _context.Agendamentos.FindAsync(agendamentoModel.DataInicial);
+            if (existingAgendamento == null)
+            {
+                return false;
+            }
+            if (existingAgendamento.DataInicial == agendamentoModel.DataInicial && existingAgendamento.SalaId == agendamentoModel.SalaId ||
+                existingAgendamento.DataFinal == agendamentoModel.DataInicial && existingAgendamento.SalaId == agendamentoModel.SalaId)
+            {
+                return true;
+            }
+
+            return await _context.Agendamentos.AnyAsync(a => a.DataInicial == agendamentoModel.DataInicial);
+        }
+
 
         public async Task<Agendamento> CreateAsync(Agendamento agendamentoModel)
         {
