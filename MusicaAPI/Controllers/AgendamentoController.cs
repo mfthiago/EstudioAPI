@@ -2,6 +2,7 @@
 using MusicaAPI.Interfaces;
 using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusicaAPI.Controllers
 {
@@ -63,7 +64,12 @@ namespace MusicaAPI.Controllers
                 return BadRequest("Informações inválidas");
             }
             var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId,salaId);
-            if (!await _agendamentoRepo.AgendamentoExistsData(agendamentoModel))
+            var minDate = DateTime.Now;
+            if(agendamentoModel.DataInicial < minDate)
+            {
+                return BadRequest("Data inválida");
+            }
+            if (await _agendamentoRepo.AgendamentoExistsData(agendamentoModel,salaId))
             {
                 return BadRequest("Já existe um agenndamento nesse horário");
             }

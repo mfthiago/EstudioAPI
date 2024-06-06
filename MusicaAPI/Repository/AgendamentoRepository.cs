@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Data;
 using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
+using System.Data.Entity;
+using System.Linq;
+
 
 namespace MusicaAPI.Repository
 {
@@ -22,29 +25,28 @@ namespace MusicaAPI.Repository
             {
                 return false;
             }
-            if(existingAgendamento.DataInicial == agendamentoModel.DataInicial || existingAgendamento.DataFinal == agendamentoModel.DataInicial) 
-            {
-                return true;
-            }
+            
 
             return await _context.Agendamentos.AnyAsync(a=> a.Id== id);
         }
 
-        public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel)
+        public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel, int salaId)
         {
-            var existingAgendamento = await _context.Agendamentos.FindAsync(agendamentoModel.DataInicial);
-            if (existingAgendamento == null)
+            var salaAgendamento =  _context.Agendamentos.Select(s => s.SalaId); 
+            var datasReservadas = _context.Agendamentos.Select(x => x.DataInicial);
+
+            if(salaAgendamento.Contains(salaId))
             {
-                return false;
-            }
-            if (existingAgendamento.DataInicial == agendamentoModel.DataInicial && existingAgendamento.SalaId == agendamentoModel.SalaId ||
-                existingAgendamento.DataFinal == agendamentoModel.DataInicial && existingAgendamento.SalaId == agendamentoModel.SalaId)
-            {
-                return true;
+                if (datasReservadas.Contains(agendamentoModel.DataInicial))
+                {
+                    return true;
+                }
+                else { return false; }
             }
 
             return await _context.Agendamentos.AnyAsync(a => a.DataInicial == agendamentoModel.DataInicial);
         }
+      
 
 
         public async Task<Agendamento> CreateAsync(Agendamento agendamentoModel)
@@ -92,6 +94,11 @@ namespace MusicaAPI.Repository
             await _context.SaveChangesAsync();
             return existingAgendamento;
 
+        }
+
+        public Task<bool> AgendamentoExistsData(Agendamento agendamentoModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
