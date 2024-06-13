@@ -8,6 +8,7 @@ namespace MusicaAPI.Interfaces
     {
         Task<List<Cliente>> GetAllAsync(QueryObject query);
         Task<Cliente?> GetByIdAsync(int id);//FirstOrDefault podem ser nulos
+        Task<Cliente?> GetByNameAsync(string nome);
         Task<Cliente> CreateAsync(Cliente clienteModel);
         Task<Cliente?> UpdateAsync(int id, UpdateClienteRequestDto clienteDto);
         Task<Cliente?> DeleteAsync(int id);

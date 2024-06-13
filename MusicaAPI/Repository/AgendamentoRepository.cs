@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicaAPI.Data;
 using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
-using System.Data.Entity;
+
 using System.Linq;
 
 
@@ -58,7 +58,8 @@ namespace MusicaAPI.Repository
 
         public async Task<Agendamento?> DeleteAsync(int id)
         {
-            var agendamentoModel = await _context.Agendamentos.FirstOrDefaultAsync(a=>a.Id== id);   
+            var agendamentoModel = await _context.Agendamentos.ToListAsync();   
+            if(agendamentoModel.Contains())
 
             if(agendamentoModel == null)
             {

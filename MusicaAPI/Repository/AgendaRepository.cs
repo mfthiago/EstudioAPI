@@ -19,7 +19,9 @@ namespace MusicaAPI.Repository
                 {
                     Id = agendamento.AgendamentoId,
                     ClienteId = agendamento.Agendamento.ClienteId,
+                    Cliente = agendamento.Agendamento.Cliente,
                     SalaId = agendamento.Agendamento.SalaId,
+                    Sala = agendamento.Agendamento.Sala,
                     DataInicial = agendamento.Agendamento.DataInicial,
                     DataFinal = agendamento.Agendamento.DataFinal
                     

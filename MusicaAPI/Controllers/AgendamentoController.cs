@@ -3,6 +3,7 @@ using MusicaAPI.Interfaces;
 using MusicaAPI.Dtos.Agendamento;
 using MusicaAPI.Mappers;
 using Microsoft.EntityFrameworkCore;
+using MusicaAPI.Models;
 
 namespace MusicaAPI.Controllers
 {
@@ -78,9 +79,9 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("{id:int},{clienteId:int},{salaId:int}")]
 
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto,int clienteId, int salaId)
         {
             if (!ModelState.IsValid)
             {
@@ -90,6 +91,20 @@ namespace MusicaAPI.Controllers
             if(agendamento == null)
             {
                 return NotFound("Agendamento não encontrado.");
+            }
+            if (!await _clienteRepo.ClienteExists(clienteId) ||
+                !await _salaRepo.SalaExists(salaId))
+            {
+                return BadRequest("Informações inválidas");
+            }
+            var minDate = DateTime.Now;
+            if (agendamento.DataInicial < minDate)
+            {
+                return BadRequest("Data inválida");
+            }
+            if (await _agendamentoRepo.AgendamentoExistsData(agendamento, salaId))
+            {
+                return BadRequest("Já existe um agenndamento nesse horário");
             }
             return Ok(agendamento.ToAgendamentoDto());
 

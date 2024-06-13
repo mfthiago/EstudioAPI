@@ -88,5 +88,10 @@ namespace MusicaAPI.Repository
             return existingCliente;
 
         }
+
+        public async Task<Cliente?> GetByNameAsync(string nome)
+        {
+            return await _context.Clientes.FirstOrDefaultAsync(n => n.Nome == nome);
+        }
     }
 }
