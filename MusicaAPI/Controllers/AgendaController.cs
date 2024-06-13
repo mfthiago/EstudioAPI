@@ -6,6 +6,7 @@ using MusicaAPI.Extensions;
 using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 using MusicaAPI.Dtos.Agendamento;
+using System.Linq;
 
 namespace MusicaAPI.Controllers
 {
@@ -40,28 +41,23 @@ namespace MusicaAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddAgenda(string nome,int salaId)
+        public async Task<IActionResult> AddAgenda(string nome,int salaId,Agendamento agendamentoModel)
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             var cliente = await _clienteRepo.GetByNameAsync(nome);
             var sala = await _salaRepo.GetByIdAsync(salaId);
-            var agendamento = await _agendamentoRepo.GetAllAsync();
+            var agendamentoExists = await _agendamentoRepo.AgendamentoExistsData(agendamentoModel,salaId);
 
             if(cliente == null) return BadRequest("Cliente não encontrado");
-            if (sala == null) return BadRequest("Saça não encontrada");
+            if (sala == null) return BadRequest("Sala não encontrada");
 
             var userAgenda = await _agendaRepo.GetUserAgenda(appUser);
 
-            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId, salaId);
             var minDate = DateTime.Now;
-            if (agendamentoModel.DataInicial < minDate)
+            if (agendamentoExists == true)
             {
-                return BadRequest("Data inválida");
-            }
-            if (await _agendamentoRepo.AgendamentoExistsData(agendamentoModel, salaId))
-            {
-                return BadRequest("Já existe um agenndamento nesse horário");
+                return BadRequest("Já existe um agendamento nesse horário");
             }
 
         }

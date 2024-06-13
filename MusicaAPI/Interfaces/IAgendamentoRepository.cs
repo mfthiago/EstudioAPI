@@ -7,6 +7,7 @@ namespace MusicaAPI.Interfaces
     {
         Task<List<Agendamento>> GetAllAsync();
         Task<Agendamento?> GetByIdAsync(int id);
+        Task<Agendamento?> GetByDataAsync(Agendamento agendamentoModel);
         Task<bool> AgendamentoExists(int id, Agendamento agendamentoModel);
         Task<bool> AgendamentoExistsData(Agendamento agendamentoModel, int salaId);
         Task<Agendamento> CreateAsync(Agendamento agendamentoModel);
