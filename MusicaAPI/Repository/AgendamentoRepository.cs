@@ -75,11 +75,6 @@ namespace MusicaAPI.Repository
             return await _context.Agendamentos.ToListAsync();
         }
 
-        public async Task<Agendamento?> GetByDataAsync(Agendamento agendamentoModel, DateTime dataInicial)
-        {
-            
-        }
-
         public async Task<Agendamento?> GetByIdAsync(int id)
         {
             return await _context.Agendamentos.FirstOrDefaultAsync(i => i.Id == id);

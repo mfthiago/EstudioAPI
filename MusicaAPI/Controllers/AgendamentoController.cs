@@ -64,7 +64,7 @@ namespace MusicaAPI.Controllers
             {
                 return BadRequest("Informações inválidas");
             }
-            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(clienteId,salaId);
+            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(salaId);
             var minDate = DateTime.Now;
             if(agendamentoModel.DataInicial < minDate)
             {
@@ -72,7 +72,7 @@ namespace MusicaAPI.Controllers
             }
             if (await _agendamentoRepo.AgendamentoExistsData(agendamentoModel,salaId))
             {
-                return BadRequest("Já existe um agenndamento nesse horário");
+                return BadRequest("Já existe um agendamento nesse horário");
             }
             await _agendamentoRepo.CreateAsync(agendamentoModel);
             return CreatedAtAction(nameof(GetById), new { id = agendamentoModel.Id }, agendamentoModel.ToAgendamentoDto());

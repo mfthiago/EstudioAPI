@@ -62,10 +62,9 @@ namespace MusicaAPI
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
-                options.Password.RequireDigit = true;
+
                 options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
+
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddAuthentication(options =>

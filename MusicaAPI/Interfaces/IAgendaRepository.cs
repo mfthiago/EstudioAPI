@@ -1,9 +1,11 @@
 ﻿using MusicaAPI.Models;
+using System.Runtime.CompilerServices;
 
 namespace MusicaAPI.Interfaces
 {
     public interface IAgendaRepository
     {
-        Task<List<Agendamento>> GetUserAgenda(AppUser user);
+        Task<List<Agenda>> GetUserAgenda(AppUser user);
+
     }
 }

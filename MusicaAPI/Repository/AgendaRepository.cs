@@ -2,6 +2,7 @@
 using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace MusicaAPI.Repository
 {
@@ -12,20 +13,10 @@ namespace MusicaAPI.Repository
         {
             _context = context;
         }
-        public async Task<List<Agendamento>> GetUserAgenda(AppUser user)
+
+        public Task<List<Agenda>> GetUserAgenda(AppUser user)
         {
-            return await _context.Agendas.Where(u => u.AppUserId == user.Id)
-                .Select(agendamento => new Agendamento
-                {
-                    Id = agendamento.AgendamentoId,
-                    ClienteId = agendamento.Agendamento.ClienteId,
-                    Cliente = agendamento.Agendamento.Cliente,
-                    SalaId = agendamento.Agendamento.SalaId,
-                    Sala = agendamento.Agendamento.Sala,
-                    DataInicial = agendamento.Agendamento.DataInicial,
-                    DataFinal = agendamento.Agendamento.DataFinal
-                    
-                }).ToListAsync();
+            throw new NotImplementedException();
         }
     }
 }

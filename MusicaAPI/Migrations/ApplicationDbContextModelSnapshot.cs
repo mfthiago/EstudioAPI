@@ -51,13 +51,13 @@ namespace MusicaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6fd1bba6-6b3f-44c8-8cc6-ee5072a369dd",
+                            Id = "13c649b7-e518-46f8-a33b-2ec9b550b652",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "47b076f7-5ac8-405e-ad52-55cf4a5cee6f",
+                            Id = "9d00f6be-15a5-4d96-9871-5b0991ee43ad",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -174,16 +174,19 @@ namespace MusicaAPI.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("SalaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AgendamentoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("AppUserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ClienteId")
                         .HasColumnType("int");
 
-                    b.HasKey("AppUserId", "SalaId", "AgendamentoId");
+                    b.Property<int?>("SalaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "AgendamentoId");
 
                     b.HasIndex("AgendamentoId");
 
@@ -458,30 +461,24 @@ namespace MusicaAPI.Migrations
                         .WithMany("Agendas")
                         .HasForeignKey("ClienteId");
 
-                    b.HasOne("MusicaAPI.Models.Sala", "Sala")
+                    b.HasOne("MusicaAPI.Models.Sala", null)
                         .WithMany("Agendas")
-                        .HasForeignKey("SalaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalaId");
 
                     b.Navigation("Agendamento");
 
                     b.Navigation("AppUser");
-
-                    b.Navigation("Sala");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Agendamento", b =>
                 {
-                    b.HasOne("MusicaAPI.Models.Cliente", "Cliente")
+                    b.HasOne("MusicaAPI.Models.Cliente", null)
                         .WithMany("Agendamentos")
                         .HasForeignKey("ClienteId");
 
                     b.HasOne("MusicaAPI.Models.Sala", "Sala")
                         .WithMany("Agendamentos")
                         .HasForeignKey("SalaId");
-
-                    b.Navigation("Cliente");
 
                     b.Navigation("Sala");
                 });

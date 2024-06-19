@@ -10,18 +10,16 @@ namespace MusicaAPI.Mappers
             return new AgendamentoDto
             {
                 Id = agendamentoModel.Id,
-                ClienteId = agendamentoModel.ClienteId,
                 SalaId = agendamentoModel.SalaId,
                 DataInicial = agendamentoModel.DataInicial,
                 DataFinal = agendamentoModel.DataFinal
             };
         }
-        public static Agendamento ToAgendamentoFromCreate(this CreateAgendamentoDto agendamentoDto, int clienteId
+        public static Agendamento ToAgendamentoFromCreate(this CreateAgendamentoDto agendamentoDto
             ,int salaId)
         {
             return new Agendamento
             {
-                ClienteId = clienteId,
                 SalaId = salaId,
                 DataInicial = agendamentoDto.DataInicial,
                 DataFinal = agendamentoDto.DataFinal
