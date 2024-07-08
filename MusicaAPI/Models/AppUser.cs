@@ -4,6 +4,6 @@ namespace MusicaAPI.Models
 {
     public class AppUser : IdentityUser
     {
-        public List<Agenda> Agendas { get; set; } = new List<Agenda>();
+        public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
     }
 }

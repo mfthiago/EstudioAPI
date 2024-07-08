@@ -18,7 +18,7 @@ namespace MusicaAPI.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Agenda>(x => x.HasKey(p => new { p.AppUserId, p.AgendamentoId}));
+            /*builder.Entity<Agenda>(x => x.HasKey(p => new { p.AppUserId, p.AgendamentoId}));
 
             builder.Entity<Agenda>()
                 .HasOne(u => u.AppUser)
@@ -26,9 +26,9 @@ namespace MusicaAPI.Data
                 .HasForeignKey(p => p.AppUserId);
             
             builder.Entity<Agenda>()
-                .HasOne(u => u.Agendamento)
+                .HasMany(u => u.Agendamentos)
                 .WithMany(u => u.Agendas)
-                .HasForeignKey(p => p.AgendamentoId);
+                .HasForeignKey(p => p.AgendamentoId);*/
             
 
 
@@ -54,7 +54,7 @@ namespace MusicaAPI.Data
         public DbSet<Equipamento> Equipamentos { get;set; }
         public DbSet<Estudio> Estudios { get; set; } 
         public DbSet<Sala> Salas { get; set; }
-        public DbSet<Agenda> Agendas { get; set; }
+
 
         
 

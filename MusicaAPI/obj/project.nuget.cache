@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xNnIVVa5SpUt7d2IfEnpMHW/wOIgL+DmpOontlIFbo2R6g0VVSBA7Umc5G6PqqLRxP8jNQXWZYDLZ8Q5ANyRSQ==",
+  "dgSpecHash": "jaRhmtj09FSFZQT8ExmOAE+vQXkcnY33TJuMSfPeToX55xxItMRuPk51200yxNfGreRJzJTqdsNqEsoJdenutA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\código\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
+  "projectFilePath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\código\\MusicaAPI\\MusicaAPI\\MusicaAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thiag\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

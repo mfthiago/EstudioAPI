@@ -62,7 +62,6 @@ namespace MusicaAPI
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
-
                 options.Password.RequireLowercase = true;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>();
@@ -97,7 +96,7 @@ namespace MusicaAPI
             builder.Services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
             builder.Services.AddScoped<IEstudioRepository, EstudioRepository>();
             builder.Services.AddScoped<ISalaRepository, SalaRepository>();
-            builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
+
             builder.Services.AddScoped<ITokenService, TokenService>();
 
             var app = builder.Build();

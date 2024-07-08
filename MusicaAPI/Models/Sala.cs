@@ -12,7 +12,6 @@ namespace MusicaAPI.Models
         public double Preco { get; set; }
         public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
         public List<Equipamento> Equipamentos { get; set; } = new List<Equipamento>();
-        public List<Agenda> Agendas { get; set; } = new List<Agenda>();
 
         public Sala() { }
     }
