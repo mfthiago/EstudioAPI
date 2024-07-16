@@ -50,19 +50,9 @@ const CompanyPage = (props: Props) => {
     <>
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
-        <Sidebar
-          tabItems={tabItems}
-          setActiveSideBarItem={setActiveSideBarItem}
-          activeSidebarItem={activeSidebarItem!}
-        />
-        <CompanyDashboard
-          tabItems={tabItems}
-          activeSidebarItem={activeSidebarItem!}
-        >
+        <Sidebar/>
+        <CompanyDashboard ticker="ticker!">
           <Tile title="Company Name" subTitle={company.companyName} />
-          <Tile title="DCF" subTitle={company.dcf.toString()} />
-          <Tile title="Dividend" subTitle={company.lastDiv.toString()} />
-          <Tile title="Price" subTitle={company.price.toString()} />
         </CompanyDashboard>
       </div>
     ) : (
