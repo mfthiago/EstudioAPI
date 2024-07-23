@@ -1,37 +1,34 @@
 import React from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { useAuth } from "../../Context/UseAuth";
+import { useForm } from "react-hook-form";
 
-
-type Props = {}
+type Props = {};
 
 type RegisterFormsInputs = {
-    email: string;
-    userName: string;
-    password: string;
-  };
+  email: string;
+  userName: string;
+  password: string;
+};
 
-  const validation = Yup.object().shape({
-    email: Yup.string().required("Email is required"),
-    userName: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required"),
-  });
-
-  const RegisterPage = (props: Props) => {
-    const { registerUser  } = useAuth();
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<RegisterFormsInputs>({ resolver: yupResolver(validation) });
-  
-    const handleLogin = (form: RegisterFormsInputs) => {
-      registerUser(form.email,form.userName, form.password);
-    };
+const validation = Yup.object().shape({
+  email: Yup.string().required("Email is required"),
+  userName: Yup.string().required("Username is required"),
+  password: Yup.string().required("Password is required"),
+});
 
 const RegisterPage = (props: Props) => {
+  const { registerUser } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormsInputs>({ resolver: yupResolver(validation) });
+
+  const handleLogin = (form: RegisterFormsInputs) => {
+    registerUser(form.email, form.userName, form.password);
+  };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -44,7 +41,7 @@ const RegisterPage = (props: Props) => {
               className="space-y-4 md:space-y-6"
               onSubmit={handleSubmit(handleLogin)}
             >
-                <div>
+              <div>
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -132,7 +129,7 @@ const RegisterPage = (props: Props) => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;
