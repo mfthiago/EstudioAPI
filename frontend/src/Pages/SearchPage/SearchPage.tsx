@@ -1,16 +1,20 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
+import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
 import { searchCompanies } from '../../api';
 import { CompanySearch } from '../../company';
 import CardList from '../../Components/CardList/CardList';
 import Navbar from '../../Components/Navbar/Navbar';
 import ListPortfolio from '../../Components/Portfolio/ListPortfolio/ListPortfolio';
 import Search from '../../Components/Search/Search';
+import { AgendamentoGet } from '../../Models/Agendamento';
+import { agendamentoAddApi, agendamentoDeleteApi, agendamentoGetApi } from '../../Services/AgendamentoService';
+import { toast } from 'react-toastify';
+import { get } from 'http';
 
 interface Props  {}
 
 const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
-  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
+  const [portfolioValues, setPortfolioValues] = useState<AgendamentoGet[] | null>([]);
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -18,21 +22,45 @@ const SearchPage = (props: Props) => {
     setSearch(e.target.value);
   };
 
+
+  useEffect(() => {
+    getAgendamento();
+  }, []);
+
+  const getAgendamento = async () => {
+    agendamentoGetApi()
+    .then((res) =>{
+      if(res?.data){
+        setPortfolioValues(res?.data);
+      }
+    }).catch((e)=>{
+      toast.warning("Erro ao buscar agendamentos");
+    })
+  };
+
+
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
-  
-    const exists = portfolioValues.find((value) => value === e.target[0].value);
-    if (exists) return;
-    const updatedPortfolio = [...portfolioValues, e.target[0].value];
-    setPortfolioValues(updatedPortfolio);
+    agendamentoAddApi(e.target[0].value)
+    .then((res) => {
+      if(res?.status === 204){
+        toast.success("Agendamento criado com sucesso");
+        getAgendamento();
+      }
+    }).catch((e) => {
+      toast.warning("Erro ao criar agendamento");
+    })
   };
 
   const onPortfolioDelete = (e: any) => {
     e.preventDefault();
-    const removed = portfolioValues.filter((value) => {
-      return value !== e.target[0].value;
+    agendamentoDeleteApi(e.target[0].value)
+    .then((res) => {
+      if(res?.status === 200){
+        toast.success("Agendamento deletado com sucesso");
+        getAgendamento();
+      }
     })
-    setPortfolioValues(removed);
   }
 
 
@@ -55,7 +83,7 @@ const SearchPage = (props: Props) => {
           handleSearchChange={handleSearchChange}
         />
         <ListPortfolio 
-        portfolioValues={portfolioValues} 
+        portfolioValues={portfolioValues!} 
         onPortfolioDelete={onPortfolioDelete}
         />
         <CardList
