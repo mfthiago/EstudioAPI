@@ -9,7 +9,7 @@ using MusicaAPI.Dtos.Estudio;
 
 namespace MusicaAPI.Controllers
 {
-    [Route("MusicaAPI/Estudio")]
+    [Route("api/estudio")]
     [ApiController]
     public class EstudioController : ControllerBase
     {

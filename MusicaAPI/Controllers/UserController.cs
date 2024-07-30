@@ -27,6 +27,18 @@ namespace api.Controllers
             _signinManager = signInManager;
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {

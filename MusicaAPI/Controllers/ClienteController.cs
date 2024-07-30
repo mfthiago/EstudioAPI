@@ -9,7 +9,7 @@ using MusicaAPI.Helpers;
 
 namespace MusicaAPI.Controllers
 {
-    [Route("MusicaAPI/Cliente")]
+    [Route("api/cliente")]
     [ApiController]
     public class ClienteController : ControllerBase
     {

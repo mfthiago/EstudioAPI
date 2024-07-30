@@ -9,7 +9,7 @@ using MusicaAPI.Dtos.Sala;
 namespace MusicaAPI.Controllers
 {
 
-    [Route("MusicaAPI/Equipamento")]
+    [Route("api/equipamento")]
     [ApiController]
     public class EquipamentoController : ControllerBase
     {
