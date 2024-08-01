@@ -12,8 +12,8 @@ using MusicaAPI.Data;
 namespace MusicaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240619202214_Remake")]
-    partial class Remake
+    [Migration("20240801061846_Preco")]
+    partial class Preco
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace MusicaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "13c649b7-e518-46f8-a33b-2ec9b550b652",
+                            Id = "0429c66a-f4b5-4d1e-a271-f8d64fe2a5de",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9d00f6be-15a5-4d96-9871-5b0991ee43ad",
+                            Id = "c822fcbf-5912-4fea-8384-280e6b5dd020",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -172,34 +172,6 @@ namespace MusicaAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MusicaAPI.Models.Agenda", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AgendamentoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AppUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SalaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AppUserId", "AgendamentoId");
-
-                    b.HasIndex("AgendamentoId");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("SalaId");
-
-                    b.ToTable("Agendas");
-                });
-
             modelBuilder.Entity("MusicaAPI.Models.Agendamento", b =>
                 {
                     b.Property<int>("Id")
@@ -207,6 +179,12 @@ namespace MusicaAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AppUserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ClienteId")
                         .HasColumnType("int");
@@ -217,14 +195,16 @@ namespace MusicaAPI.Migrations
                     b.Property<DateTime>("DataInicial")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SalaId")
+                    b.Property<int?>("EstudioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("SalaId");
+                    b.HasIndex("EstudioId");
 
                     b.ToTable("Agendamentos");
                 });
@@ -353,6 +333,12 @@ namespace MusicaAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CheckIn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CheckOut")
+                        .HasColumnType("int");
+
                     b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -360,6 +346,9 @@ namespace MusicaAPI.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("float");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
@@ -378,9 +367,6 @@ namespace MusicaAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EstudioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -389,8 +375,6 @@ namespace MusicaAPI.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstudioId");
 
                     b.ToTable("Salas");
                 });
@@ -446,44 +430,21 @@ namespace MusicaAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MusicaAPI.Models.Agenda", b =>
-                {
-                    b.HasOne("MusicaAPI.Models.Agendamento", "Agendamento")
-                        .WithMany("Agendas")
-                        .HasForeignKey("AgendamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MusicaAPI.Models.AppUser", "AppUser")
-                        .WithMany("Agendas")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MusicaAPI.Models.Cliente", null)
-                        .WithMany("Agendas")
-                        .HasForeignKey("ClienteId");
-
-                    b.HasOne("MusicaAPI.Models.Sala", null)
-                        .WithMany("Agendas")
-                        .HasForeignKey("SalaId");
-
-                    b.Navigation("Agendamento");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("MusicaAPI.Models.Agendamento", b =>
                 {
+                    b.HasOne("MusicaAPI.Models.AppUser", null)
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("MusicaAPI.Models.Cliente", null)
                         .WithMany("Agendamentos")
                         .HasForeignKey("ClienteId");
 
-                    b.HasOne("MusicaAPI.Models.Sala", "Sala")
+                    b.HasOne("MusicaAPI.Models.Estudio", "Estudio")
                         .WithMany("Agendamentos")
-                        .HasForeignKey("SalaId");
+                        .HasForeignKey("EstudioId");
 
-                    b.Navigation("Sala");
+                    b.Navigation("Estudio");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Equipamento", b =>
@@ -497,43 +458,23 @@ namespace MusicaAPI.Migrations
                     b.Navigation("Sala");
                 });
 
-            modelBuilder.Entity("MusicaAPI.Models.Sala", b =>
-                {
-                    b.HasOne("MusicaAPI.Models.Estudio", "Estudio")
-                        .WithMany("Salas")
-                        .HasForeignKey("EstudioId");
-
-                    b.Navigation("Estudio");
-                });
-
-            modelBuilder.Entity("MusicaAPI.Models.Agendamento", b =>
-                {
-                    b.Navigation("Agendas");
-                });
-
             modelBuilder.Entity("MusicaAPI.Models.AppUser", b =>
                 {
-                    b.Navigation("Agendas");
+                    b.Navigation("Agendamentos");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Cliente", b =>
                 {
                     b.Navigation("Agendamentos");
-
-                    b.Navigation("Agendas");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Estudio", b =>
                 {
-                    b.Navigation("Salas");
+                    b.Navigation("Agendamentos");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Sala", b =>
                 {
-                    b.Navigation("Agendamentos");
-
-                    b.Navigation("Agendas");
-
                     b.Navigation("Equipamentos");
                 });
 #pragma warning restore 612, 618

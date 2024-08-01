@@ -39,12 +39,12 @@ namespace MusicaAPI.Repository
 
         public async Task<List<Sala>> GetAllAsync()
         {
-            return await _context.Salas.Include(a => a.Agendamentos).Include(e => e.Equipamentos).ToListAsync();
+            return await _context.Salas.ToListAsync();
         }
 
         public async Task<Sala?> GetByIdAsync(int id)
         {
-            return await _context.Salas.Include(a => a.Agendamentos).Include(e => e.Equipamentos).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Salas.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public Task<bool> SalaExists(int id)

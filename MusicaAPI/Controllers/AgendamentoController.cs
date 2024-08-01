@@ -18,14 +18,14 @@ namespace MusicaAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IAgendamentoRepository _agendamentoRepo;
         private readonly IClienteRepository _clienteRepo;
-        private readonly ISalaRepository _salaRepo;
+        private readonly IEstudioRepository _estudioRepo;
 
-        public AgendamentoController(UserManager<AppUser> userManager,IAgendamentoRepository agendamentoRepo, IClienteRepository clienteRepo, ISalaRepository salaRepo)
+        public AgendamentoController(UserManager<AppUser> userManager,IAgendamentoRepository agendamentoRepo, IClienteRepository clienteRepo, IEstudioRepository estudioRepo)
         {
             _userManager = userManager;
             _agendamentoRepo = agendamentoRepo;
             _clienteRepo = clienteRepo;
-            _salaRepo = salaRepo;
+            _estudioRepo = estudioRepo;
         }
 
         [HttpGet]
@@ -58,9 +58,9 @@ namespace MusicaAPI.Controllers
             return Ok(agendamento.ToAgendamentoDto());
         }
 
-        [HttpPost("{salaId:int}")]
+        [HttpPost("{estudioId:int}")]
         [Authorize]
-        public async Task<IActionResult> Create([FromRoute] int salaId, CreateAgendamentoDto agendamentoDto )
+        public async Task<IActionResult> Create([FromRoute] int estudioId, CreateAgendamentoDto agendamentoDto )
         {
             if (!ModelState.IsValid)
             {
@@ -68,18 +68,17 @@ namespace MusicaAPI.Controllers
             }
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-            if (
-                !await _salaRepo.SalaExists(salaId))
+            if (!await _estudioRepo.EstudioExists(estudioId));
             {
                 return BadRequest("Informações inválidas");
             }
-            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(username,salaId);
+            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(username,estudioId);
             var minDate = DateTime.Now;
             if(agendamentoModel.DataInicial < minDate)
             {
                 return BadRequest("Data inválida");
             }
-            if (await _agendamentoRepo.AgendamentoExistsData(agendamentoModel,salaId))
+            if (await _agendamentoRepo.AgendamentoExistsData(agendamentoModel,estudioId))
             {
                 return BadRequest("Já existe um agendamento nesse horário");
             }
@@ -88,9 +87,9 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int},{salaId:int}")]
+        [Route("{id:int},{estudioId:int}")]
 
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto,int salaId)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAgendamentoRequestDto updateDto,int estudioId)
         {
             if (!ModelState.IsValid)
             {
@@ -101,8 +100,7 @@ namespace MusicaAPI.Controllers
             {
                 return NotFound("Agendamento não encontrado.");
             }
-            if (
-                !await _salaRepo.SalaExists(salaId))
+            if (!await _estudioRepo.EstudioExists(estudioId))
             {
                 return BadRequest("Informações inválidas");
             }
@@ -111,7 +109,7 @@ namespace MusicaAPI.Controllers
             {
                 return BadRequest("Data inválida");
             }
-            if (await _agendamentoRepo.AgendamentoExistsData(agendamento, salaId))
+            if (await _agendamentoRepo.AgendamentoExistsData(agendamento, estudioId))
             {
                 return BadRequest("Já existe um agenndamento nesse horário");
             }

@@ -51,13 +51,13 @@ namespace MusicaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "be0035f0-dcac-48f2-ac13-8a5acc008d14",
+                            Id = "0429c66a-f4b5-4d1e-a271-f8d64fe2a5de",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "6cd45719-f48e-4b15-8271-1d6a3f611eca",
+                            Id = "c822fcbf-5912-4fea-8384-280e6b5dd020",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -192,7 +192,7 @@ namespace MusicaAPI.Migrations
                     b.Property<DateTime>("DataInicial")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SalaId")
+                    b.Property<int?>("EstudioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -201,7 +201,7 @@ namespace MusicaAPI.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("SalaId");
+                    b.HasIndex("EstudioId");
 
                     b.ToTable("Agendamentos");
                 });
@@ -344,6 +344,9 @@ namespace MusicaAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Preco")
+                        .HasColumnType("float");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -361,9 +364,6 @@ namespace MusicaAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EstudioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,8 +372,6 @@ namespace MusicaAPI.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstudioId");
 
                     b.ToTable("Salas");
                 });
@@ -439,11 +437,11 @@ namespace MusicaAPI.Migrations
                         .WithMany("Agendamentos")
                         .HasForeignKey("ClienteId");
 
-                    b.HasOne("MusicaAPI.Models.Sala", "Sala")
+                    b.HasOne("MusicaAPI.Models.Estudio", "Estudio")
                         .WithMany("Agendamentos")
-                        .HasForeignKey("SalaId");
+                        .HasForeignKey("EstudioId");
 
-                    b.Navigation("Sala");
+                    b.Navigation("Estudio");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Equipamento", b =>
@@ -455,15 +453,6 @@ namespace MusicaAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Sala");
-                });
-
-            modelBuilder.Entity("MusicaAPI.Models.Sala", b =>
-                {
-                    b.HasOne("MusicaAPI.Models.Estudio", "Estudio")
-                        .WithMany("Salas")
-                        .HasForeignKey("EstudioId");
-
-                    b.Navigation("Estudio");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.AppUser", b =>
@@ -478,13 +467,11 @@ namespace MusicaAPI.Migrations
 
             modelBuilder.Entity("MusicaAPI.Models.Estudio", b =>
                 {
-                    b.Navigation("Salas");
+                    b.Navigation("Agendamentos");
                 });
 
             modelBuilder.Entity("MusicaAPI.Models.Sala", b =>
                 {
-                    b.Navigation("Agendamentos");
-
                     b.Navigation("Equipamentos");
                 });
 #pragma warning restore 612, 618

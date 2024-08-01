@@ -9,6 +9,8 @@ import axios from 'axios'
 import {UserContextProvider } from './UserContext'
 import React from 'react'
 import AccountPage from './pages/AccountPage'
+import MeusEstudiosPage from './pages/MeusEstudiosPage'
+import EstudiosFormPage from './pages/EstudiosFormPage'
 
 axios.defaults.baseURL = 'http://localhost:5027/api'
 
@@ -23,8 +25,10 @@ function App() {
           <Route index element={<IndexPage />}/>
           <Route path='/login' element={<LoginPage />}/>
           <Route path='/register' element={<RegisterPage />}/>
-          <Route path='/account/:subpage?' element={<AccountPage />}/>
-          <Route path='/account/:subpage/:action' element={<AccountPage />}/>
+          <Route path='/account/' element={<AccountPage />}/>
+          <Route path='/account/estudios' element={<MeusEstudiosPage />}/>
+          <Route path='/account/estudios/novo' element={<EstudiosFormPage />}/>
+          <Route path='/account/estudios/:id' element={<EstudiosFormPage />}/>
         </Route>
       </Routes>
     </UserContextProvider>

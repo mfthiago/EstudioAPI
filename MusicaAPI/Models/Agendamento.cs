@@ -6,9 +6,9 @@ namespace MusicaAPI.Models
     public class Agendamento
     {
         public int Id { get; set; }
-        public int? SalaId { get; set; }
+        public int? EstudioId { get; set; }
         public string? AppUserName { get; set; }
-        public Sala? Sala { get; set; }
+        public Estudio? Estudio { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
 

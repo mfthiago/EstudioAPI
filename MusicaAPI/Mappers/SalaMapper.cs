@@ -13,20 +13,19 @@ namespace MusicaAPI.Mappers
             return new SalaDto
             {
                 Id = salaModel.Id,
-                EstudioId = salaModel.EstudioId,
                 Nome = salaModel.Nome,
                 Preco = salaModel.Preco,
-                Agendamentos = salaModel.Agendamentos.Select(a => a.ToAgendamentoDto()).ToList(),
+
                 Equipamentos = salaModel.Equipamentos.Select(s => s.ToEquipamentoDto()).ToList()
             };
         }
-        public static Sala ToSalaFromCreateDto(this CreateSalaRequestDto salaDto, int estudioId)
+        public static Sala ToSalaFromCreateDto(this CreateSalaRequestDto salaDto)
         {
             return new Sala
             {
                 Nome = salaDto.Nome,
                 Preco = salaDto.Preco,
-                EstudioId = estudioId
+
                
             };
         }

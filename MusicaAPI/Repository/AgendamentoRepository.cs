@@ -30,13 +30,13 @@ namespace MusicaAPI.Repository
             return await _context.Agendamentos.AnyAsync(a=> a.Id== id);
         }
 
-        public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel, int salaId)
+        public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel, int estudioId)
         {
-            var salaAgendamento =  _context.Agendamentos.Select(s => s.SalaId); 
+            var estudioAgendamento =  _context.Agendamentos.Select(s => s.EstudioId); 
             var dataInicial = _context.Agendamentos.Select(x => x.DataInicial);
             var dataFinal = _context.Agendamentos.Select(x => x.DataFinal);
 
-            if (salaAgendamento.Contains(salaId))
+            if (estudioAgendamento.Contains(estudioId))
             {
                 if (dataInicial.Contains(agendamentoModel.DataInicial) || (dataFinal.Contains(agendamentoModel.DataFinal)))
                 {

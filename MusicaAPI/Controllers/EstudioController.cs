@@ -15,11 +15,9 @@ namespace MusicaAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IEstudioRepository _estudioRepo;
-        private readonly ISalaRepository _salaRepo;
-        public EstudioController(ApplicationDbContext context, IEstudioRepository estudioRepo, ISalaRepository salaRepo)
+        public EstudioController(ApplicationDbContext context, IEstudioRepository estudioRepo)
         {
             _estudioRepo = estudioRepo;
-            _salaRepo = salaRepo;
             _context = context;
         }
 

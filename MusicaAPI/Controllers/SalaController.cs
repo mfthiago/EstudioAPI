@@ -62,7 +62,7 @@ namespace MusicaAPI.Controllers
             {
                 return BadRequest("Estúdio não existe.");
             }
-            var salaModel = salaDto.ToSalaFromCreateDto(estudioId);
+            var salaModel = salaDto.ToSalaFromCreateDto();
             await _salaRepo.CreateAsync(salaModel);
             return CreatedAtAction(nameof(GetById), new { id = salaModel.Id }, salaModel.ToSalaDto());
         }

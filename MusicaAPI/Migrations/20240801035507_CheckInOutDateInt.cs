@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MusicaAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Remake : Migration
+    public partial class CheckInOutDateInt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -75,11 +75,27 @@ namespace MusicaAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CheckIn = table.Column<int>(type: "int", nullable: false),
+                    CheckOut = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estudios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Salas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Preco = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,48 +205,35 @@ namespace MusicaAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Salas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EstudioId = table.Column<int>(type: "int", nullable: true),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preco = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Salas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Salas_Estudios_EstudioId",
-                        column: x => x.EstudioId,
-                        principalTable: "Estudios",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Agendamentos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SalaId = table.Column<int>(type: "int", nullable: true),
+                    EstudioId = table.Column<int>(type: "int", nullable: true),
+                    AppUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataFinal = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ClienteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Agendamentos", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Agendamentos_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Agendamentos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Agendamentos_Salas_SalaId",
-                        column: x => x.SalaId,
-                        principalTable: "Salas",
+                        name: "FK_Agendamentos_Estudios_EstudioId",
+                        column: x => x.EstudioId,
+                        principalTable: "Estudios",
                         principalColumn: "Id");
                 });
 
@@ -255,51 +258,19 @@ namespace MusicaAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Agendas",
-                columns: table => new
-                {
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AgendamentoId = table.Column<int>(type: "int", nullable: false),
-                    AppUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClienteId = table.Column<int>(type: "int", nullable: true),
-                    SalaId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Agendas", x => new { x.AppUserId, x.AgendamentoId });
-                    table.ForeignKey(
-                        name: "FK_Agendas_Agendamentos_AgendamentoId",
-                        column: x => x.AgendamentoId,
-                        principalTable: "Agendamentos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Agendas_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Agendas_Clientes_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Clientes",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Agendas_Salas_SalaId",
-                        column: x => x.SalaId,
-                        principalTable: "Salas",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "13c649b7-e518-46f8-a33b-2ec9b550b652", null, "Admin", "ADMIN" },
-                    { "9d00f6be-15a5-4d96-9871-5b0991ee43ad", null, "User", "USER" }
+                    { "1431b755-4c38-4ebb-ae85-fa50c5b3614a", null, "Admin", "ADMIN" },
+                    { "ccf796a2-4053-428d-ad98-8e633b0486a4", null, "User", "USER" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agendamentos_AppUserId",
+                table: "Agendamentos",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Agendamentos_ClienteId",
@@ -307,24 +278,9 @@ namespace MusicaAPI.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_SalaId",
+                name: "IX_Agendamentos_EstudioId",
                 table: "Agendamentos",
-                column: "SalaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendas_AgendamentoId",
-                table: "Agendas",
-                column: "AgendamentoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendas_ClienteId",
-                table: "Agendas",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendas_SalaId",
-                table: "Agendas",
-                column: "SalaId");
+                column: "EstudioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -369,18 +325,13 @@ namespace MusicaAPI.Migrations
                 name: "IX_Equipamentos_SalaId",
                 table: "Equipamentos",
                 column: "SalaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Salas_EstudioId",
-                table: "Salas",
-                column: "EstudioId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Agendas");
+                name: "Agendamentos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -401,7 +352,10 @@ namespace MusicaAPI.Migrations
                 name: "Equipamentos");
 
             migrationBuilder.DropTable(
-                name: "Agendamentos");
+                name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Estudios");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -410,13 +364,7 @@ namespace MusicaAPI.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
                 name: "Salas");
-
-            migrationBuilder.DropTable(
-                name: "Estudios");
         }
     }
 }

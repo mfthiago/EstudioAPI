@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MusicaAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class CheckInOut : Migration
+    public partial class Preco : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,34 +15,27 @@ namespace MusicaAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "5ead34bd-19c3-4511-af26-24fa268b6d0f");
+                keyValue: "1431b755-4c38-4ebb-ae85-fa50c5b3614a");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "69353740-db20-4cd7-9be1-98ca4bbbd2bc");
+                keyValue: "ccf796a2-4053-428d-ad98-8e633b0486a4");
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CheckIn",
+            migrationBuilder.AddColumn<double>(
+                name: "Preco",
                 table: "Estudios",
-                type: "datetime2",
+                type: "float",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CheckOut",
-                table: "Estudios",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: 0.0);
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "124387b7-d88d-4ab1-9c1c-dce557949c9d", null, "User", "USER" },
-                    { "20d7198b-8542-4731-92ca-ced2004a4dcf", null, "Admin", "ADMIN" }
+                    { "0429c66a-f4b5-4d1e-a271-f8d64fe2a5de", null, "Admin", "ADMIN" },
+                    { "c822fcbf-5912-4fea-8384-280e6b5dd020", null, "User", "USER" }
                 });
         }
 
@@ -53,19 +45,15 @@ namespace MusicaAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "124387b7-d88d-4ab1-9c1c-dce557949c9d");
+                keyValue: "0429c66a-f4b5-4d1e-a271-f8d64fe2a5de");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "20d7198b-8542-4731-92ca-ced2004a4dcf");
+                keyValue: "c822fcbf-5912-4fea-8384-280e6b5dd020");
 
             migrationBuilder.DropColumn(
-                name: "CheckIn",
-                table: "Estudios");
-
-            migrationBuilder.DropColumn(
-                name: "CheckOut",
+                name: "Preco",
                 table: "Estudios");
 
             migrationBuilder.InsertData(
@@ -73,8 +61,8 @@ namespace MusicaAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5ead34bd-19c3-4511-af26-24fa268b6d0f", null, "User", "USER" },
-                    { "69353740-db20-4cd7-9be1-98ca4bbbd2bc", null, "Admin", "ADMIN" }
+                    { "1431b755-4c38-4ebb-ae85-fa50c5b3614a", null, "Admin", "ADMIN" },
+                    { "ccf796a2-4053-428d-ad98-8e633b0486a4", null, "User", "USER" }
                 });
         }
     }

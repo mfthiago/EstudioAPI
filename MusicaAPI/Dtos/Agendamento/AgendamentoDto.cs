@@ -8,7 +8,7 @@ namespace MusicaAPI.Dtos.Agendamento
         public int Id { get; set; }
 
         public string? AppUserId { get; set; }
-        public int? SalaId { get; set; }
+        public int? EstudioId { get; set; }
         public string? AppUserName { get; set; }
 
         public DateTime DataInicial { get; set; }

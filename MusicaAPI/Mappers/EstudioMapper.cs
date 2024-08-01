@@ -15,7 +15,9 @@ namespace MusicaAPI.Mappers
                 Nome = estudioModel.Nome,
                 Endereco = estudioModel.Endereco,
                 Telefone = estudioModel.Telefone,
-                Salas = estudioModel.Salas.Select(s => s.ToSalaDto()).ToList()
+                CheckIn = estudioModel.CheckIn,
+                CheckOut = estudioModel.CheckOut,
+                Agendamentos = estudioModel.Agendamentos.Select(a => a.ToAgendamentoDto()).ToList(),
 
             };
         }
@@ -25,7 +27,9 @@ namespace MusicaAPI.Mappers
             {
                 Nome = estudioDto.Nome,
                 Endereco = estudioDto.Endereco,
-                Telefone = estudioDto.Telefone
+                Telefone = estudioDto.Telefone,
+                CheckIn = estudioDto.CheckIn,
+                CheckOut = estudioDto.CheckOut
             };
         }
     } 
