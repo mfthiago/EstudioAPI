@@ -5,14 +5,10 @@ namespace MusicaAPI.Dtos.Agendamento
 {
     public class CreateAgendamentoDto
     {
-
-        [Required]
+        public double Preco{ get; set; }
         [DataType(DataType.DateTime)]
-
         public DateTime DataInicial { get; set; }
-        [Required]
         [DataType(DataType.DateTime)]
-
         public DateTime DataFinal { get; set; }
     }
 }

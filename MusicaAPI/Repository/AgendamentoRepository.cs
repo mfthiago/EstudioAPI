@@ -79,6 +79,10 @@ namespace MusicaAPI.Repository
         {
             return await _context.Agendamentos.FirstOrDefaultAsync(i => i.Id == id);
         }
+        public async Task<Agendamento?> GetByUser(string user)
+        {
+            return await _context.Agendamentos.FirstOrDefaultAsync(u => u.AppUserName == user);
+        }
 
         public async Task<Agendamento?> UpdateAsync(int id, Agendamento agendamentoModel)
         {

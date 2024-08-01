@@ -22,5 +22,7 @@ namespace MusicaAPI.Dtos.Estudio
         [Required]
 
         public int CheckOut { get; set; }
+        [Required]
+        public string Descricao { get; set; }
     }
 }

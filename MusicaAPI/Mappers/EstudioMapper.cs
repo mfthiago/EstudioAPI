@@ -17,6 +17,8 @@ namespace MusicaAPI.Mappers
                 Telefone = estudioModel.Telefone,
                 CheckIn = estudioModel.CheckIn,
                 CheckOut = estudioModel.CheckOut,
+                Preco = estudioModel.Preco,
+                Descricao = estudioModel.Descricao,
                 Agendamentos = estudioModel.Agendamentos.Select(a => a.ToAgendamentoDto()).ToList(),
 
             };
@@ -28,6 +30,8 @@ namespace MusicaAPI.Mappers
                 Nome = estudioDto.Nome,
                 Endereco = estudioDto.Endereco,
                 Telefone = estudioDto.Telefone,
+                Preco = estudioDto.Preco,
+                Descricao = estudioDto.Descricao,
                 CheckIn = estudioDto.CheckIn,
                 CheckOut = estudioDto.CheckOut
             };

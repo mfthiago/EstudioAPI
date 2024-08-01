@@ -11,6 +11,8 @@ import React from 'react'
 import AccountPage from './pages/AccountPage'
 import MeusEstudiosPage from './pages/MeusEstudiosPage'
 import EstudiosFormPage from './pages/EstudiosFormPage'
+import EstudiosPage from './pages/EstudiosPage'
+import Agendamento from './pages/Agendamento'
 
 axios.defaults.baseURL = 'http://localhost:5027/api'
 
@@ -29,6 +31,8 @@ function App() {
           <Route path='/account/estudios' element={<MeusEstudiosPage />}/>
           <Route path='/account/estudios/novo' element={<EstudiosFormPage />}/>
           <Route path='/account/estudios/:id' element={<EstudiosFormPage />}/>
+          <Route path='/estudio/:id' element={<EstudiosPage />}/>
+          <Route path='/account/agendamentos' element={<Agendamento />}/>
         </Route>
       </Routes>
     </UserContextProvider>

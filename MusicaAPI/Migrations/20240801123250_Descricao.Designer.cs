@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicaAPI.Data;
 
@@ -11,9 +12,11 @@ using MusicaAPI.Data;
 namespace MusicaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240801123250_Descricao")]
+    partial class Descricao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace MusicaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59c595a4-35b5-4049-9edd-493693b3a17a",
+                            Id = "3aba9ff6-0101-4a62-bf6f-8bfaefd6a3be",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "649435dc-891f-4b80-9556-c7291577ac03",
+                            Id = "94f366f3-ceb7-4c32-a61c-01e1b21e072c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -194,9 +197,6 @@ namespace MusicaAPI.Migrations
 
                     b.Property<int?>("EstudioId")
                         .HasColumnType("int");
-
-                    b.Property<double>("Preco")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useState} from 'react';
 import MeusEstudiosPage from './MeusEstudiosPage';
 import AccountNavigation from '../AccountNavigation';
+import Agendamento from './Agendamento';
 
 export default function AccountPage(){
     const{ready,user,setUser} = useContext(UserContext);
@@ -53,6 +54,11 @@ export default function AccountPage(){
             {subpage==='estudios'&& (
                 <div>
                     <MeusEstudiosPage />
+                </div>
+            )}
+            {subpage==='agendamentos'&& (
+                <div>
+                    <Agendamento />
                 </div>
             )}
         </div>

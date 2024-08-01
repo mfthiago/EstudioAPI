@@ -68,13 +68,10 @@ namespace MusicaAPI.Controllers
             }
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-            if (!await _estudioRepo.EstudioExists(estudioId));
-            {
-                return BadRequest("Informações inválidas");
-            }
+
             var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(username,estudioId);
             var minDate = DateTime.Now;
-            if(agendamentoModel.DataInicial < minDate)
+            if(agendamentoModel.DataInicial <= minDate || agendamentoModel.DataFinal<= minDate || agendamentoModel.DataFinal<= agendamentoModel.DataInicial)
             {
                 return BadRequest("Data inválida");
             }

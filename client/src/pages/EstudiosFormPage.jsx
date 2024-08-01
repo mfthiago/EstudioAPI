@@ -10,8 +10,10 @@ export default function EstudiosFormPage(){
     const[nome,setNome] = useState('');
     const[telefone,setTelefone] = useState('');
     const[endereco,setEndereco] = useState('');
+    const[descricao,setDescricao] = useState('');
     const[checkIn,setCheckIn] = useState('');
     const[checkOut,setCheckOut] = useState('');
+    const[preco,setPreco] = useState('');
     const[redirect,setRedirect] = useState(false);
 
     useEffect(() => {
@@ -23,8 +25,11 @@ export default function EstudiosFormPage(){
             setNome(data.nome);
             setTelefone(data.telefone);
             setEndereco(data.endereco);
+            setDescricao(data.descricao);
             setCheckIn(data.checkIn);
             setCheckOut(data.checkOut);
+            setPreco(data.preco);
+
         });
     }, [id]);
 
@@ -32,7 +37,8 @@ export default function EstudiosFormPage(){
         ev.preventDefault();
         const estudioData= {
             nome,telefone,
-            endereco,checkIn,checkOut
+            endereco, descricao,
+            checkIn,checkOut, preco
         }
         if(id){
             await axios.put('/Estudio/'+id, {
@@ -62,9 +68,11 @@ export default function EstudiosFormPage(){
                         <input type="text" value={telefone} onChange={ev => setTelefone(ev.target.value)} placeholder="(DDD) 99999-0000"/>
                         <h2 className="text-2xl mt-4">Endereço</h2>
                         <input type="text" value={endereco} onChange={ev => setEndereco(ev.target.value)} placeholder="Endereço"/>
+                        <h2 className="text-2xl mt-4">Descrição</h2>
+                        <input type="text" value={descricao} onChange={ev => setDescricao(ev.target.value)} placeholder="Descrição do Estúdio"/>
                         <h2 className="text-2xl mt-4">Check In&Out</h2>
                         <p className="text-gray-500 text-sm"></p>
-                        <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
                             <div>
                                 <h3 className="mt-2 -mb-1">Check-In</h3>
                                 <input type="text" value={checkIn} onChange={ev => setCheckIn(ev.target.value)} placeholder="14:00" />
@@ -73,12 +81,11 @@ export default function EstudiosFormPage(){
                                 <h3 className="mt-2 -mb-1">Check-Out</h3>
                                 <input type="text" value={checkOut} onChange={ev => setCheckOut(ev.target.value)} placeholder="15:00" />
                             </div>
-                            <div>
-                                <h3 className="mt-2 -mb-1">Preço</h3>
-                                <input type="text" value={checkOut} onChange={ev => setCheckOut(ev.target.value)} placeholder="15:00" />
-                            </div>
+                            
                             
                         </div>
+                        <h2 className="text-2xl mt-4">Preço por Dia</h2>
+                        <input type="number" value={preco} onChange={ev => setPreco(ev.target.value)} placeholder="$$$" />
                         <div>
                             <button className="primary my-4">
                                 Salvar

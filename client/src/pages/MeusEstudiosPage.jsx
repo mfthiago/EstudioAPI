@@ -32,8 +32,7 @@ export default function MeusEstudiosPage(){
                             </div>
                             <div className="grow-0 shrink">
                                 <h2 className="text-xl">{estudio.nome}</h2>
-                                <p className="text-sm mt-2">{estudio.endereco}</p>
-                                <p className="text-sm mt-2">{estudio.telefone}</p>
+                                <p className="text-sm mt-2">{estudio.descricao}</p>
                             </div>
                         </Link>
                     ))}

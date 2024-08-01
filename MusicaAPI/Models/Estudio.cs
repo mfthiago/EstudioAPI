@@ -12,6 +12,7 @@ namespace MusicaAPI.Models
         public double Preco { get; set; }
         public int CheckIn { get; set; }
         public int CheckOut { get; set; }
+        public string Descricao { get; set; } = string.Empty;
         public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
 
         public Estudio() { }

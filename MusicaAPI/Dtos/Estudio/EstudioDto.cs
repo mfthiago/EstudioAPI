@@ -12,6 +12,7 @@ namespace MusicaAPI.Dtos.Estudio
         public double Preco { get; set; }
         public int CheckIn { get; set; }
         public int CheckOut { get; set; }
+        public string Descricao { get; set; } = string.Empty;
         public List<SalaDto> Salas { get; set; } = new List<SalaDto>();
         public List<AgendamentoDto>? Agendamentos { get; set; }
     }

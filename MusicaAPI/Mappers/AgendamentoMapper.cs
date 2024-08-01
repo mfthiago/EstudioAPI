@@ -1,4 +1,5 @@
 ﻿using MusicaAPI.Dtos.Agendamento;
+using MusicaAPI.Migrations;
 using MusicaAPI.Models;
 
 namespace MusicaAPI.Mappers
@@ -12,6 +13,7 @@ namespace MusicaAPI.Mappers
                 Id = agendamentoModel.Id,
                 AppUserName = agendamentoModel.AppUserName,
                 EstudioId = agendamentoModel.EstudioId,
+                Preco = agendamentoModel.Preco,
                 DataInicial = agendamentoModel.DataInicial,
                 DataFinal = agendamentoModel.DataFinal
             };
@@ -23,6 +25,7 @@ namespace MusicaAPI.Mappers
             {
                 AppUserName = appUserName,
                 EstudioId = estudioId,
+                Preco = agendamentoDto.Preco,
                 DataInicial = agendamentoDto.DataInicial,
                 DataFinal = agendamentoDto.DataFinal
             };

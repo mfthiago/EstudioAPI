@@ -17,6 +17,8 @@ namespace MusicaAPI.Dtos.Estudio
         public string Endereco { get; set; } = string.Empty;
         [Required]
         public double Preco { get; set; }
+        [Required]
+        public string Descricao { get; set; }
 
     }
 }
