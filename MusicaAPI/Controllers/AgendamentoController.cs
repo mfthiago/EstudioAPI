@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace MusicaAPI.Controllers
 {
 
-    [Route("MusicaAPI/Agendamento")]
+    [Route("api/Agendamento")]
     [ApiController]
     public class AgendamentoController : ControllerBase
     {

@@ -114,7 +114,7 @@ namespace MusicaAPI
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:3000")
+                .WithOrigins("http://localhost:5173")
                 .SetIsOriginAllowed(origin => true)
             );
 

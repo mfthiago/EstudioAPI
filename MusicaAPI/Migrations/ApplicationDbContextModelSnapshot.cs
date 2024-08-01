@@ -51,13 +51,13 @@ namespace MusicaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "69353740-db20-4cd7-9be1-98ca4bbbd2bc",
+                            Id = "be0035f0-dcac-48f2-ac13-8a5acc008d14",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5ead34bd-19c3-4511-af26-24fa268b6d0f",
+                            Id = "6cd45719-f48e-4b15-8271-1d6a3f611eca",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -329,6 +329,12 @@ namespace MusicaAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CheckIn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CheckOut")
+                        .HasColumnType("int");
 
                     b.Property<string>("Endereco")
                         .IsRequired()

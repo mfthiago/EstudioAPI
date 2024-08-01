@@ -7,7 +7,7 @@ using MusicaAPI.Dtos.Sala;
 namespace MusicaAPI.Controllers
 {
 
-    [Route("MusicaAPI/Sala")]
+    [Route("api/Sala")]
     [ApiController]
     public class SalaController : ControllerBase
     {
