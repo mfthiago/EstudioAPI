@@ -65,7 +65,7 @@ export default function EstudiosPage(){
     }
 
     return(
-        <div className="mt-4 bg-gray-100 -mx-8 px-8 pt-8 ">
+        <div className="mt-4 bg-gray-100 -mx-8 px-8 py-8 ">
             <h1 className="text-3xl">{estudio.nome}</h1>
             <a target="_blank" className="flex my-3 block font-semibold underline" 
                 href={"https://maps.google.com/?q="

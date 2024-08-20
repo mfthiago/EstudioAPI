@@ -22,6 +22,7 @@ export default function LoginPage(){
             }
             )
             setUser(data);
+            console.log(data)
             alert("Logado com sucesso");
 
             setRedirect(true);

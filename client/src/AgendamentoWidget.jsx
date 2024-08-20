@@ -4,36 +4,57 @@ import axios from "axios";
 import { UserContext } from "./UserContext";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 
 export default function AgendamentoWidget({estudio}) {
-    const[checkIn,setCheckIn] = useState('');
-    const[checkOut,setCheckOut] = useState('');
+    const[dataInicial,setDataInicial] = useState('');
+    const[dataFinal,setDataFinal] = useState('');
     const[nome,setNome] = useState('');
+    const[userId,setUserId] = useState('');
     const[contato,setContato] = useState('');
     const{user} = useContext(UserContext);
+    const[redirect,setRedirect] = useState(null);
     
     useEffect(() => {
         if(user){
             setNome(user.username);
+            setUserId(user.id)
 
         }
     })
 
     let numberOfDays= 0;
-    if(checkIn && checkOut){
-        numberOfDays = differenceInCalendarDays(new Date(checkOut),new Date (checkIn));
+    if(dataInicial && dataFinal){
+        numberOfDays = differenceInCalendarDays(new Date(dataFinal),new Date (dataInicial));
     }
 
     async function agendar(){
         const data ={
-            checkIn,checkOut,
+            dataInicial,dataFinal,
             estudio:estudio.id, 
             preco:numberOfDays * estudio.preco,
-            username:user.nome
+            appuser:nome,
+            appuserid: userId,
+  
+
         }
-        await axios.post('/Agendamento/'+estudio.id,data)
+        axios.post('/Agendamento/'+estudio.id,data, {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+user.token
+          },      
+      })    
+      const agendamentoId= data.id;
+      if(agendamentoId!=null){
+        alert('Agendamento feito com sucesso');
+        setRedirect('/agendamento/'+agendamentoId);
+      }
+      
     }
+
+    if(redirect) {
+      return <Navigate to={redirect} />
+    }  
 
     
     
@@ -47,29 +68,16 @@ export default function AgendamentoWidget({estudio}) {
         <div className="flex">
           <div className="py-3 px-4">
             <label>Check In: </label>
-            <input type="date" value={checkIn} onChange={ev=>setCheckIn(ev.target.value)} />
+            <input type="date" value={dataInicial} onChange={ev=>setDataInicial(ev.target.value)} />
           </div>
           <div className="py-3 px-4 border-l">
             <label>Check Out: </label>
             <input type="date"
-            value={checkOut} 
-            onChange={ev=>setCheckOut(ev.target.value)} />
+            value={dataFinal} 
+            onChange={ev=>setDataFinal(ev.target.value)} />
           </div>
         </div>
-        {numberOfDays>0 &&(
-            <div className="py-3 px-4 border-l">
-                <label>Seu nome completo: </label>
-                <input type="text"
-                    value={nome} 
-                    onChange={ev=>setNome(ev.target.value)} />
-
-                <label>Seu número de telefone: </label>
-                <input type="text"
-                    value={contato} 
-                    onChange={ev=>setContato(ev.target.value)} />
-                
-            </div>
-        )}
+        {numberOfDays>0}
       </div>
 
       <button onClick={agendar} className="primary mt-4">

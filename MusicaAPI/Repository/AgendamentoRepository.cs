@@ -5,6 +5,8 @@ using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure;
 
 
 namespace MusicaAPI.Repository

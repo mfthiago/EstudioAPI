@@ -17,10 +17,10 @@ export default function AccountPage(){
     }
 
     async function logout(){
-        await axios.post('/account/logout')
         setUser(null);
         setRedirect('/');
     }
+    
 
     if(!ready){
         return <div>Loading...</div>
