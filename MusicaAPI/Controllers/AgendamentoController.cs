@@ -11,7 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace MusicaAPI.Controllers
 {
 
+<<<<<<< HEAD
     [Route("api/Agendamento")]
+=======
+    [Route("api/agendamento")]
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
     [ApiController]
     public class AgendamentoController : ControllerBase
     {
@@ -29,6 +33,16 @@ namespace MusicaAPI.Controllers
         }
 
         [HttpGet]
+        [Route("user")]
+        public async Task<IActionResult> GetUserAgenda()
+        {
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            var userAgenda = await _agendamentoRepo.GetUserAgenda(appUser);
+            return Ok(userAgenda);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -41,6 +55,7 @@ namespace MusicaAPI.Controllers
             return Ok(agendamentoDto);
 
         }
+        
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -68,8 +83,18 @@ namespace MusicaAPI.Controllers
             }
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
+<<<<<<< HEAD
 
             var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(username,estudioId);
+=======
+            if (
+                !await _salaRepo.SalaExists(salaId))
+            {
+                return BadRequest("Informações inválidas");
+            }
+            var agendamentoModel = agendamentoDto.ToAgendamentoFromCreate(salaId);
+            agendamentoModel.AppUserName = appUser.UserName;
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
             var minDate = DateTime.Now;
             if(agendamentoModel.DataInicial <= minDate || agendamentoModel.DataFinal<= minDate || agendamentoModel.DataFinal<= agendamentoModel.DataInicial)
             {
@@ -130,6 +155,8 @@ namespace MusicaAPI.Controllers
             return Ok(agendamentoModel);
 
         }
+
+
 
     }
 }

@@ -9,11 +9,19 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MusicaAPI
 build_property.RootNamespace = MusicaAPI
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\thiag\OneDrive\Área de Trabalho\MusicaAPI\musicaapi\
+=======
+build_property.ProjectDir = C:\Users\thiag\OneDrive\Área de Trabalho\Studies\MusicaAPI\musicaapi\
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+<<<<<<< HEAD
 build_property.MSBuildProjectDirectory = C:\Users\thiag\OneDrive\Área de Trabalho\MusicaAPI\musicaapi
+=======
+build_property.MSBuildProjectDirectory = C:\Users\thiag\OneDrive\Área de Trabalho\Studies\MusicaAPI\musicaapi
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
 build_property._RazorSourceGeneratorDebug = 

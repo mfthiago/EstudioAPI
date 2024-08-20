@@ -9,7 +9,11 @@ using MusicaAPI.Helpers;
 
 namespace MusicaAPI.Controllers
 {
+<<<<<<< HEAD
     [Route("api/Cliente")]
+=======
+    [Route("api/cliente")]
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
     [ApiController]
     public class ClienteController : ControllerBase
     {

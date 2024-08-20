@@ -5,8 +5,12 @@ using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 using System.Data.Entity.Validation;
 using System.Linq;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
+=======
+using Microsoft.AspNetCore.Identity;
+>>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
 
 
 namespace MusicaAPI.Repository
@@ -15,8 +19,10 @@ namespace MusicaAPI.Repository
     {
 
         private readonly ApplicationDbContext _context;
-        public AgendamentoRepository(ApplicationDbContext context)
+        private readonly UserManager<AppUser> _userManager;
+        public AgendamentoRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -54,6 +60,7 @@ namespace MusicaAPI.Repository
 
         public async Task<Agendamento> CreateAsync(Agendamento agendamentoModel)
         {
+
             await _context.Agendamentos.AddAsync(agendamentoModel);
             await _context.SaveChangesAsync();
             return agendamentoModel; 
@@ -100,6 +107,19 @@ namespace MusicaAPI.Repository
             await _context.SaveChangesAsync();
             return existingAgendamento;
 
+        }
+
+        public async Task<List<Agendamento>> GetUserAgenda(AppUser user)
+        {
+            return await _context.Agendamentos.Where(u => u.AppUserName == user.UserName)
+            .Select(Agendamento => new Agendamento
+            {
+                Id = Agendamento.Id,
+                AppUserName = Agendamento.AppUserName,
+                SalaId = Agendamento.SalaId,
+                DataInicial = Agendamento.DataInicial,
+                DataFinal = Agendamento.DataFinal
+            }).ToListAsync();
         }
 
     }
