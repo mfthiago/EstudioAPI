@@ -5,45 +5,34 @@ using MusicaAPI.Interfaces;
 using MusicaAPI.Models;
 using System.Data.Entity.Validation;
 using System.Linq;
-<<<<<<< HEAD
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
-=======
-using Microsoft.AspNetCore.Identity;
->>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
 
 
 namespace MusicaAPI.Repository
 {
     public class AgendamentoRepository : IAgendamentoRepository
     {
-
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<AppUser> _userManager;
-        public AgendamentoRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
+        public AgendamentoRepository(ApplicationDbContext context)
         {
-            _userManager = userManager;
             _context = context;
         }
-
         public async Task<bool> AgendamentoExists(int id, Agendamento agendamentoModel)
         {
             var existingAgendamento = await _context.Agendamentos.FindAsync(id);
-            if(existingAgendamento == null)
+            if (existingAgendamento == null)
             {
                 return false;
             }
-            
 
-            return await _context.Agendamentos.AnyAsync(a=> a.Id== id);
+            return await _context.Agendamentos.AnyAsync(a => a.Id == id);
         }
-
         public async Task<bool> AgendamentoExistsData(Agendamento agendamentoModel, int estudioId)
         {
-            var estudioAgendamento =  _context.Agendamentos.Select(s => s.EstudioId); 
+            var estudioAgendamento = _context.Agendamentos.Select(s => s.EstudioId);
             var dataInicial = _context.Agendamentos.Select(x => x.DataInicial);
             var dataFinal = _context.Agendamentos.Select(x => x.DataFinal);
-
             if (estudioAgendamento.Contains(estudioId))
             {
                 if (dataInicial.Contains(agendamentoModel.DataInicial) || (dataFinal.Contains(agendamentoModel.DataFinal)))
@@ -52,20 +41,15 @@ namespace MusicaAPI.Repository
                 }
                 else { return false; }
             }
-
             return await _context.Agendamentos.AnyAsync(a => a.DataInicial == agendamentoModel.DataInicial);
         }
-      
-
 
         public async Task<Agendamento> CreateAsync(Agendamento agendamentoModel)
         {
-
             await _context.Agendamentos.AddAsync(agendamentoModel);
             await _context.SaveChangesAsync();
-            return agendamentoModel; 
+            return agendamentoModel;
         }
-
         public async Task<Agendamento?> DeleteAsync(int id)
         {
             var agendamentoModel = await _context.Agendamentos.FirstOrDefaultAsync(x => x.Id == id);
@@ -75,15 +59,12 @@ namespace MusicaAPI.Repository
             }
             _context.Agendamentos.Remove(agendamentoModel);
             await _context.SaveChangesAsync();
-
             return agendamentoModel;
         }
-
         public async Task<List<Agendamento>> GetAllAsync()
         {
             return await _context.Agendamentos.ToListAsync();
         }
-
         public async Task<Agendamento?> GetByIdAsync(int id)
         {
             return await _context.Agendamentos.FirstOrDefaultAsync(i => i.Id == id);
@@ -92,35 +73,18 @@ namespace MusicaAPI.Repository
         {
             return await _context.Agendamentos.FirstOrDefaultAsync(u => u.AppUserName == user);
         }
-
         public async Task<Agendamento?> UpdateAsync(int id, Agendamento agendamentoModel)
         {
             var existingAgendamento = await _context.Agendamentos.FindAsync(id);
-            
-            if(existingAgendamento == null)
+
+            if (existingAgendamento == null)
             {
                 return null;
             }
             existingAgendamento.DataInicial = agendamentoModel.DataInicial;
             existingAgendamento.DataFinal = agendamentoModel.DataFinal;
-
             await _context.SaveChangesAsync();
             return existingAgendamento;
-
         }
-
-        public async Task<List<Agendamento>> GetUserAgenda(AppUser user)
-        {
-            return await _context.Agendamentos.Where(u => u.AppUserName == user.UserName)
-            .Select(Agendamento => new Agendamento
-            {
-                Id = Agendamento.Id,
-                AppUserName = Agendamento.AppUserName,
-                SalaId = Agendamento.SalaId,
-                DataInicial = Agendamento.DataInicial,
-                DataFinal = Agendamento.DataFinal
-            }).ToListAsync();
-        }
-
     }
 }

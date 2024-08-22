@@ -27,10 +27,6 @@ namespace api.Controllers
             _signinManager = signInManager;
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -42,10 +38,7 @@ namespace api.Controllers
             return Ok(users);
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {

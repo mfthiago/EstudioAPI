@@ -15,7 +15,6 @@ namespace MusicaAPI.Interfaces
         Task<Agendamento?> UpdateAsync(int id, Agendamento agendamentoModel);
 
         Task<Agendamento?> DeleteAsync(int id);
-        Task<List<Agendamento>> GetUserAgenda(AppUser user);
 
     }
 }
