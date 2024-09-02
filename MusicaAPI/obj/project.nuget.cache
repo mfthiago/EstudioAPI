@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "OADV5V9EJUeL0NeaUsbjr/DVtIlUCorMrmjcZQqU91S9A3In5RXvm/FOUiBWb6n9gCCZdmkWufcJMxKs92xgfQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
-=======
-  "dgSpecHash": "TpsP5WApiyWyZmJPuw/StnrjiGvkbFZQhfmwPY4cRX3LIHrH6gsQ8RTZRtHtsWKYPeJ1nlwfFUc9nJz06+Uzpw==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
->>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
   "expectedPackageFiles": [
     "C:\\Users\\thiag\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -103,6 +97,12 @@
     "C:\\Users\\thiag\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\MusicaAPI\\musicaapi\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",

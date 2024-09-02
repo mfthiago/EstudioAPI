@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\MusicaAPI\\musicaapi\\MusicaAPI.csproj": {}
   },
   "projects": {
@@ -13,19 +12,6 @@
         "projectPath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
         "packagesPath": "C:\\Users\\thiag\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\MusicaAPI\\musicaapi\\obj\\",
-=======
-    "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\MusicaAPI.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\MusicaAPI.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
-        "projectName": "MusicaAPI",
-        "projectPath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\MusicaAPI.csproj",
-        "packagesPath": "C:\\Users\\thiag\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thiag\\OneDrive\\Área de Trabalho\\Studies\\MusicaAPI\\musicaapi\\obj\\",
->>>>>>> a3d76c4b14726770120a040885f2ad4c800f4335
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

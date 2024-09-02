@@ -6,60 +6,60 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-export default function AgendamentoWidget({estudio}) {
-    const[dataInicial,setDataInicial] = useState('');
-    const[dataFinal,setDataFinal] = useState('');
-    const[nome,setNome] = useState('');
-    const[userId,setUserId] = useState('');
-    const[contato,setContato] = useState('');
-    const{user} = useContext(UserContext);
-    const[redirect,setRedirect] = useState(null);
-    
-    useEffect(() => {
-        if(user){
-            setNome(user.username);
-            setUserId(user.id)
+export default function AgendamentoWidget({ estudio }) {
+  const [dataInicial, setDataInicial] = useState("");
+  const [dataFinal, setDataFinal] = useState("");
+  const [nome, setNome] = useState("");
+  const [userId, setUserId] = useState("");
+  const [contato, setContato] = useState("");
+  const { user } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(null);
 
-        }
-    })
+  useEffect(() => {
+    if (user) {
+      setNome(user.username);
+      setUserId(user.id);
+    }
+  });
 
-    let numberOfDays= 0;
-    if(dataInicial && dataFinal){
-        numberOfDays = differenceInCalendarDays(new Date(dataFinal),new Date (dataInicial));
+  let numberOfDays = 0;
+  if (dataInicial && dataFinal) {
+    numberOfDays = differenceInCalendarDays(
+      new Date(dataFinal),
+      new Date(dataInicial)
+    );
+  }
+
+  async function agendar() {
+    if (user) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + user.token;
     }
 
-    async function agendar(){
-        const data ={
-            dataInicial,dataFinal,
-            estudio:estudio.id, 
-            preco:numberOfDays * estudio.preco,
-            appuser:nome,
-            appuserid: userId,
-  
+    const response = await axios.post("/Agendamento/" + estudio.id, {
+      dataInicial,
+      dataFinal,
+      estudio: estudio.id,
+      preco: numberOfDays * estudio.preco,
+      appuser: nome,
+      appuserid: userId,
+    });
 
-        }
-        axios.post('/Agendamento/'+estudio.id,data, {
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer '+user.token
-          },      
-      })    
-      const agendamentoId= data.id;
-      if(agendamentoId!=null){
-        alert('Agendamento feito com sucesso');
-        setRedirect('/agendamento/'+agendamentoId);
-      }
-      
+    const agendamentoId = response.data.id;
+
+    if (agendamentoId != null) {
+      alert("Agendamento feito com sucesso");
+      setRedirect("/agendamento/" + agendamentoId);
     }
+    else{
+      alert("Erro ao fazer agendamento");
+    }
+  }
 
-    if(redirect) {
-      return <Navigate to={redirect} />
-    }  
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
-    
-    
-    
-    return (
+  return (
     <div className="bg-white shadow p-4 rounded-2xl">
       <div className="text-2xl text-center">
         Preço: ${estudio.preco} / por dia
@@ -68,26 +68,32 @@ export default function AgendamentoWidget({estudio}) {
         <div className="flex">
           <div className="py-3 px-4">
             <label>Check In: </label>
-            <input type="date" value={dataInicial} onChange={ev=>setDataInicial(ev.target.value)} />
+            <input
+              type="date"
+              value={dataInicial}
+              onChange={(ev) => setDataInicial(ev.target.value)}
+            />
           </div>
           <div className="py-3 px-4 border-l">
             <label>Check Out: </label>
-            <input type="date"
-            value={dataFinal} 
-            onChange={ev=>setDataFinal(ev.target.value)} />
+            <input
+              type="date"
+              value={dataFinal}
+              onChange={(ev) => setDataFinal(ev.target.value)}
+            />
           </div>
         </div>
-        {numberOfDays>0}
+        {numberOfDays > 0}
       </div>
 
       <button onClick={agendar} className="primary mt-4">
         Faça seu agendamento
-        {numberOfDays>0 &&(
-            <>
-                <span> ${numberOfDays * estudio.preco}</span>
-            </>
+        {numberOfDays > 0 && (
+          <>
+            <span> ${numberOfDays * estudio.preco}</span>
+          </>
         )}
-        </button>
+      </button>
     </div>
   );
 }
