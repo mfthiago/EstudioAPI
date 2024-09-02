@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {UserContext} from '../UserContext';
 import {Navigate, Link, useParams} from 'react-router-dom';
 import AccountNavigation from '../AccountNavigation';
@@ -8,6 +8,15 @@ import {useState,useContext} from 'react';
 export default function Agendamento(){
     const{ready,user,setUser} = useContext(UserContext);
     const[redirect, setRedirect] = useState(null);
+    const[agendamentos, setAgendamentos] = useState([]);
+
+    useEffect(() => {
+        if (user) {
+            axios.defaults.headers.common["Authorization"] = "Bearer " + user.token;
+          }
+
+        axios.get('/Agendamento')
+    },[]);
 
     let{subpage} = useParams();
     if(subpage === undefined){
@@ -33,6 +42,7 @@ export default function Agendamento(){
     return(
         <div>
             <AccountNavigation />
+
                 <div className="text-center">
                     <Link  className="inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full" to={'/account/estudios/novo'}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

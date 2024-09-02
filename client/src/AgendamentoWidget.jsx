@@ -9,11 +9,11 @@ import { Navigate } from "react-router-dom";
 export default function AgendamentoWidget({ estudio }) {
   const [dataInicial, setDataInicial] = useState("");
   const [dataFinal, setDataFinal] = useState("");
-  const [nome, setNome] = useState("");
-  const [userId, setUserId] = useState("");
   const [contato, setContato] = useState("");
   const { user } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
+  const [nome, setNome] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -48,7 +48,7 @@ export default function AgendamentoWidget({ estudio }) {
 
     if (agendamentoId != null) {
       alert("Agendamento feito com sucesso");
-      setRedirect("/agendamento/" + agendamentoId);
+      setRedirect("/account/agendamento/" + agendamentoId);
     }
     else{
       alert("Erro ao fazer agendamento");
