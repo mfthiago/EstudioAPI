@@ -11,8 +11,7 @@ export default function Agendamento() {
   const { ready, user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
   const [agendamentos, setAgendamentos] = useState([]);
-  const [estudio, setEstudio] = useState([]);
-  const [estudioNome, setEstudioNome] = useState("");
+  const [estudios, setEstudios] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -22,10 +21,14 @@ export default function Agendamento() {
     axios.get("/Agendamento/").then((response) => {
       setAgendamentos(response.data);
     });
-    axios.get("/Estudio/").then((response) => {
-      setEstudio(response.data);
-    });
+    axios.get('/Estudio').then((response) =>{
+        setEstudios(response.data);
+    })
   }, []);
+
+  useEffect(() => {
+
+  })
 
   let { subpage } = useParams();
   if (subpage === undefined) {
@@ -49,7 +52,8 @@ export default function Agendamento() {
       <AccountNavigation />
       <div>
         {agendamentos?.length > 0 &&
-          agendamentos.map((agendamento) => (
+          agendamentos.map((agendamento) => ( 
+            
             <Link to ={'/account/agendamentos/'+agendamento.id} key={agendamento.id}
                 className="flex gap-4 bg-gray-200 rounded-2xl overflow-hidden">
               <div className="w-48">
