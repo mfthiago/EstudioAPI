@@ -34,7 +34,7 @@ function App() {
           <Route path='/account/estudios/:id' element={<EstudiosFormPage />}/>
           <Route path='/estudio/:id' element={<EstudiosPage />}/>
           <Route path='/account/agendamentos' element={<Agendamento />}/>
-          <Route path='/account/agendamento/:id' element={<AgendamentoPage />}/>
+          <Route path='/account/agendamentos/:id' element={<AgendamentoPage />}/>
         </Route>
       </Routes>
     </UserContextProvider>

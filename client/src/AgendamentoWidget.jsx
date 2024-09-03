@@ -15,7 +15,6 @@ export default function AgendamentoWidget({ estudio }) {
   const [nome, setNome] = useState("");
   const [userId, setUserId] = useState("");
 
-  
 
   useEffect(() => {
     if (user) {
