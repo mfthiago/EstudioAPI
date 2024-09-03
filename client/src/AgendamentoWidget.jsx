@@ -49,7 +49,7 @@ export default function AgendamentoWidget({ estudio }) {
 
     if (agendamentoId != null) {
       alert("Agendamento feito com sucesso");
-      setRedirect("/account/agendamento/" + agendamentoId);
+      setRedirect("/account/agendamentos/" + agendamentoId);
     }
     else{
       alert("Erro ao fazer agendamento");
