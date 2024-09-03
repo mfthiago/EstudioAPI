@@ -7,6 +7,7 @@ namespace MusicaAPI.Models
     {
         public int Id { get; set; }
         public int? EstudioId { get; set; }
+        public string? EstudioNome { get; set; }
         public string? AppUserName { get; set; }
         public Estudio? Estudio { get; set; }
         public double Preco{ get; set; }

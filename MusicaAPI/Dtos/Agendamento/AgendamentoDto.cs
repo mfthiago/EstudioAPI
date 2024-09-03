@@ -6,7 +6,7 @@ namespace MusicaAPI.Dtos.Agendamento
     {
 
         public int Id { get; set; }
-
+        public string? EstudioNome { get; set; }
         public string? AppUserId { get; set; }
         public int? EstudioId { get; set; }
         public string? AppUserName { get; set; }
