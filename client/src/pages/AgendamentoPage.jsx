@@ -4,33 +4,24 @@ import AccountNavigation from '../AccountNavigation';
 import axios from 'axios';
 import {useState} from 'react';
 import EnderecoLink from "../EnderecoLink";
+import EstudioGallery from "../EstudioGallery";
 
 export default function AgendamentoPage(){
     const{id} = useParams();
-    const[agendamento, setAgendamento] = useState(null);
-    const[estudio, setEstudio] = useState(null);
+    const [agendamento, setAgendamento] = useState(null);
+    const [estudio, setEstudio] = useState(null);
+    
     useEffect(() => {
         if(id){
             axios.get('/Agendamento/'+id).then(response =>{
-                const agendamentoExistente = response.data;
-                console.log(agendamentoExistente)
-                if(agendamentoExistente){
-                    setAgendamento(agendamentoExistente);
-                }
+                setAgendamento(response.data);
+                console.log(agendamento)
             })
-
-            /*const Agendamentos = axios.get('/Agendamento').then(response => response.data);
-            console.log(Agendamentos)
-            const agendamentoExistente = Agendamentos.find(({id}) => id === Agendamentos.id);
-            console.log(agendamentoExistente)
-            */
+            
             axios.get('/Estudio').then(response =>{
-                const estudioExistente = response.data.find(response => response.id === agendamento?.estudioId);
-                console.log(estudioExistente)
-                if(estudioExistente){
-                    setEstudio(estudioExistente);
-                }
-            })
+                setEstudio(response.data.find(response => response.id === agendamento?.estudioId));
+                console.log(estudio);
+            });
         }
     },[id]);
 
@@ -47,6 +38,11 @@ export default function AgendamentoPage(){
             <EnderecoLink className="my-2 block">
                 {estudio.endereco}
             </EnderecoLink>
+            <div className="bg-gray-200 p-4 mb-4 rounded-2xl">
+                <h2 className="text-xl">Informações do seu agendamento:</h2>
+                datas
+            </div>
+            <EstudioGallery estudio={estudio}/>
         </div>
     )
 }
