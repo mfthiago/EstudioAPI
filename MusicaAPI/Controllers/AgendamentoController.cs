@@ -44,7 +44,23 @@ namespace MusicaAPI.Controllers
             return Ok(agendamentoDto);
 
         }
-        
+
+
+        [HttpGet("byname/{username}")]
+        public async Task<IActionResult> GetByName([FromRoute] string username)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var agendamento = await _agendamentoRepo.GetByUser(username);
+
+            if (agendamento == null)
+            {
+                return NotFound();
+            }
+            return Ok(agendamento.ToAgendamentoDto());
+        }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

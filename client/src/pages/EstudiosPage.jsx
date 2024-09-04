@@ -42,8 +42,8 @@ export default function EstudiosPage(){
                         <h2 className="font-semibold text-2xl">Descrição</h2>
                         {estudio.descricao}
                     </div>
-                    Check-In: {estudio.checkIn} <br />
-                    Check-Out: {estudio.checkOut} <br />
+                    Check-In: {estudio.checkIn}:00 <br />
+                    Check-Out: {estudio.checkOut}:00 <br />
                 </div>
                 <div>
                     <AgendamentoWidget estudio={estudio}/>
