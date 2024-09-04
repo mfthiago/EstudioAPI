@@ -1,9 +1,9 @@
 import { differenceInCalendarDays, format as formatDate } from "date-fns";
 import React from "react";
 
-export default function AgendamentoDates({agendamento}){
+export default function AgendamentoDates({agendamento,className}){
     return (
-        <div className="flex gap-1 mb-2 mt-4 text-sm text-gray-500">
+        <div className={"flex gap-1 "+className}>
 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

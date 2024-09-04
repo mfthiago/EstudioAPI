@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import logo from '../assets/logo.png'; 
+import ponkkans from '../assets/ponkkans.png';
 export default function MeusEstudiosPage(){
 
     const[estudios, setEstudios] = useState([]);
@@ -28,7 +29,7 @@ export default function MeusEstudiosPage(){
                     {estudios.length > 0 && estudios.map(estudio=>(
                         <Link to={'/account/estudios/'+estudio.id} className="flex  cursor-pointer gap-4 bg-gray-100 p-4 rounded-full">
                             <div className="flex w-32 h-15">
-                                <img className="object-cover" src={logo} />
+                                <img className="object-cover" src={ponkkans} />
                             </div>
                             <div className="grow-0 shrink">
                                 <h2 className="text-xl">{estudio.nome}</h2>

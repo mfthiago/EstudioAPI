@@ -29,6 +29,7 @@ export default function Agendamento() {
 
   useEffect(() => {
 
+    
   })
 
   let { subpage } = useParams();
@@ -68,7 +69,7 @@ export default function Agendamento() {
                 <h2 className="text-xl">{agendamento.estudioId}</h2>
                 
                 <div className="text-xl">
-                    <AgendamentoDates agendamento={agendamento}/>
+                    <AgendamentoDates agendamento={agendamento} className='mb-2 mt-4 text-gray-500'/>
                     <div className="flex gap-1 mt-1">
 
                   <svg

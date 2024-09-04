@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import { useContext } from "react";
 import logo from './assets/logo.png';
+import ponkkans from './assets/ponkkans.png';
 
 export default function Header() {
   const{user} = useContext(UserContext);
     return (
         <header className='flex justify-between'>
         <Link to="/" className="flex items-center gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 ">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-        </svg>
-        <span className='font-bold text-xl'>Dookie</span>
+        <img className="object-cover size-10" src={ponkkans} />
+        <span className='font-bold text-xl'>Ponkkans</span>
         </Link>
         
         <div className='flex gap-2 border border-gray-300 rounded-full py-1 px-4 shadow-md shadow-gray-300'>
